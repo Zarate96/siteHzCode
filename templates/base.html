@@ -1,0 +1,314 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% if title %} 
+  <title>HZcode - {{title}}</title>
+  {% else %}
+  <title>Hzcode</title>
+  {% endif %}
+  <meta name="description" content="HZcode">
+  <meta name="keywords" content="HZcode">
+  <meta property="og:image" 
+  content="https://hzaratecode.com/panelv2.jpg" />
+  <meta property="og:title" content="HZcode"/>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,300|Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/font-awesome.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/animate.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+ 
+  <script src="https://kit.fontawesome.com/a310f58f3b.js" crossorigin="anonymous"></script>
+
+  <link href="https://hzaratecode.com/hzicon.png" rel="icon">
+  
+</head>
+<body>
+  <!--header-->
+  <header class="main-header" style="background: url({% static '/img/panelv2.jpg' %}) no-repeat; background-size: cover; min-height: 610px;" id="header">
+    <div class="bg-color">
+      <!--nav-->
+      <nav class="nav navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="fa fa-bars"></span>
+                        </button>
+              <a href="{% url 'core:inicio' %}" class="navbar-brand">HZcode</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-right" id="mynavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#header">Inicio</a></li>
+                <li><a href="#feature">Servicios</a></li>
+                <li><a href="#portfolio">Portafolio</a></li>
+                <li><a href="#contact">Contacto</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!--/ nav-->
+      <div class="container text-center">
+        <div class="wrapper wow fadeInUp delay-05s">
+          <h2 class="top-title">Desarrollo Web</h2>
+          <h3 class="title">HZcode</h3>
+          <h4 class="sub-title">Consultoría e implementación de aplicaciones web</h4>
+          <a data-href="tel:2225468777" href="tel:2225468777">
+            <button type="submit" class="btn btn-submit">Llamar</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!--/ header-->
+  <!---->
+  <section id="cta-1">
+    <div class="container">
+      <div class="row">
+        {% if messages %}
+          {% include 'core/includes/messages.html' %}
+        {% else %} 
+        <div class="cta-info text-center">
+          <h3>
+            <span class="dec-tec">“</span>La vida de cada hombre representa un camino hacia sí mismo.<span class="dec-tec">”</span> - Hermann Hesse    </h3>  
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  <!---->
+  <section id="feature" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 wow fadeInLeft delay-05s">
+          <div class="section-title">
+            <h2 class="head-title">Servicios</h2>
+            <hr class="botm-line">
+            <p class="sec-para">Aplicaciones web en producción o desarrollo para empresas o problemas específicos.</p>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="col-md-6 wow fadeInRight delay-02s">
+            <div class="icon">
+              <i class="fas fa-user-friends"></i>
+            </div>
+            <div class="icon-text">
+              <h3 class="txt-tl">Consultoría</h3>
+              <p class="txt-para">Solución de problemas especificos atraves de plataformas digitales.</p>
+            </div>
+          </div>
+          <div class="col-md-6 wow fadeInRight delay-02s">
+            <div class="icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div class="icon-text">
+              <h3 class="txt-tl">Aplicaciones web en producción</h3>
+              <p class="txt-para">Desarrollo y despliegue de proyectos web con soluciones basadas en la nube.</p>
+            </div>
+          </div>
+          <div class="col-md-6 wow fadeInRight delay-04s">
+            <div class="icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="icon-text">
+              <h3 class="txt-tl">CRM</h3>
+              <p class="txt-para">Gestores de contenido y bases de datos para soluciones basadas en la web.</p>
+            </div>
+          </div>
+          <div class="col-md-6 wow fadeInRight delay-04s">
+            <div class="icon">
+              <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div class="icon-text">
+              <h3 class="txt-tl">Clases particulares</h3>
+              <p class="txt-para">Programación web con python, javascript, html y css.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <section class="section-padding parallax bg-image-2 section wow fadeIn delay-08s" id="cta-2" style="background: url({% static '/img/cta-banner.jpg' %}) no-repeat center fixed;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="cta-txt">
+            <h3>Visita nuestro canal de Youtube </h3>
+            <p>Contenido dirigido al entorno académico</p>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <a href="#portfolio" class="btn btn-submit"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  
+  <!---->
+   
+  <section class="section-padding wow fadeInUp delay-02s" id="portfolio">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <div class="section-title">
+            <h2 class="head-title">Sitios y aplicaciones</h2>
+            <hr class="botm-line">
+            <p class="sec-para">Demostración de proyectos realizados.</p>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-12">
+          {% for demo in demos %}
+          <div class="col-sm-4 sm-margin-b-50" style="margin-bottom: 50px">
+            <div class="margin-b-30">
+                <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
+                    <img style="width: 100%;" class="img-responsive" src="{{ demo.url_foto }}" alt="Latest Products Image">
+                </div>
+            </div>
+            <h4><a href="#">{{demo.nombre}}</a> </h4>
+            <p>{{ demo.descripcion }}</p>
+            <a target="_blank" class="link" href="{{ demo.url_pag }}">Ver</a>
+          </div> 
+          {% endfor %}         
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  
+  <!-- Experience -->
+  <section id="feature" class="section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <div class="section-title">
+            <h2 class="head-title">Experiencia</h2>
+            <hr class="botm-line">
+            <p class="sec-para"></p>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-12">
+          <div class="col-md-4 col-sm-6 offset-sm-3">
+            <div class="card">
+              <h4 class="card-title text-right"><i class="fas fa-code"></i></h4>
+              <a href="https://fleteseguro.com.mx/" target="_blank"><img src="{% static '/img/fsicon3.ico' %}" style="margin-left: 11%; height: 20vh;"  style="margin-left: 11%;" alt="Cloud TI"></a>
+              <h5 class="card-title mt-3 mb-3">CIO FleteSeguro</h5>
+              <p class="card-text">Desarrollador de FleteSeguro.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Experience -->
+
+
+  <!---->
+  <section class="section-padding wow fadeInUp delay-05s" id="contact">
+    <div class="container">
+      <div class="row white">
+        <div class="col-md-8 col-sm-12">
+          <div class="section-title">
+            <h2 class="head-title black">Contáctanos</h2>
+            <hr class="botm-line">
+            <p class="sec-para black">¿Interesado en alguna de nuestras soluciones de TI?.</p>
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12">
+          <div class="col-md-4 col-sm-6" style="padding-left:0px;">
+            <div class="contact-info">
+              <form action="{% url 'core:mensaje' %}" method="post" >  
+                
+                {% csrf_token %}
+                <div class="form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Nombre" data-rule="minlen:4" data-msg="Porfavor ingrese más de 4 carácteres" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="phone" class="form-control" id="phone" placeholder="Teléfono" data-rule="phone" data-msg="Porfavor ingrese un número válido" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email" data-msg="Porfavor ingrese un email válido" />
+                  <div class="validation"></div>
+                </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" data-rule="minlen:4" data-msg="Porfavor ingrese más de 8 carácteres" />
+                  <div class="validation"></div>
+                </div>
+
+                <div class="form-group">
+                  <textarea class="form-control" name="message" id="message" rows="5" data-rule="required" data-msg="Porfavor escriba su mensaje" placeholder="Message"></textarea>
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <script src="https://www.google.com/recaptcha/api.js"></script>
+                  <div class="g-recaptcha ml-3" data-sitekey="6LcoRb4aAAAAAKvSUnl9LYo9qkfVsB8ibMFScyQ3"></div>
+                </div>
+                <hr>
+                <button type="submit" value="Send" class="btn btn-send">Enviar</button>
+              </form>
+            </div>
+
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <h3 class="cont-title">Información</h3>
+            <div class="location-info">
+              <p class="white"><span aria-hidden="true" class="fa fa-map-marker"></span>Puebla, Pue. México</p>
+              <p class="white"><span aria-hidden="true" class="fa fa-phone"></span>Teléfono: 2225468777</p>
+              <p class="white"><span aria-hidden="true" class="fa fa-envelope"></span>Email: <a href="" class="link-dec">contacto@hzaratecode.com</a></p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="contact-icon-container hidden-md hidden-sm hidden-xs">
+              <span aria-hidden="true" class="fa fa-envelope-o"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!---->
+  <!---->
+  <footer class="" id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-7 footer-copyright">
+          © HZcode - All rights reserved
+          <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Bethany
+            -->
+
+          </div>
+        </div>
+        <div class="col-sm-5 footer-social">
+          <div class="pull-right hidden-xs hidden-sm">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!---->
+  <!--contact ends-->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/wow.js' %}"></script>
+  <script src="{% static 'js/custom.js' %}"></script>
+  <script src="contactform/contactform.js"></script>
+
+</body>
+</html>
