@@ -22,8 +22,8 @@
   <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
  
   <script src="https://kit.fontawesome.com/a310f58f3b.js" crossorigin="anonymous"></script>
-
-  <link href="https://hzaratecode.com/hzicon.png" rel="icon">
+  
+  <link href="{% static '/img//hzicon.png' %}" rel="icon">
   
 </head>
 <body>
@@ -119,15 +119,7 @@
               <p class="txt-para">Gestores de contenido y bases de datos para soluciones basadas en la web.</p>
             </div>
           </div>
-          <div class="col-md-6 wow fadeInRight delay-04s">
-            <div class="icon">
-              <i class="fas fa-chalkboard-teacher"></i>
-            </div>
-            <div class="icon-text">
-              <h3 class="txt-tl">Clases particulares</h3>
-              <p class="txt-para">Programación web con python, javascript, html y css.</p>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -138,12 +130,12 @@
       <div class="row">
         <div class="col-md-8">
           <div class="cta-txt">
-            <h3>Visita nuestro canal de Youtube </h3>
-            <p>Contenido dirigido al entorno académico</p>
+            <h3>Visita nuestro perfil de Linkedin </h3>
+            <p>Perfil de carrera profesional</p>
           </div>
         </div>
         <div class="col-md-4 text-center">
-          <a href="#portfolio" class="btn btn-submit"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/in/hugo-zarate-ortiz-861038229/" class="btn btn-submit"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
@@ -159,30 +151,37 @@
           <div class="section-title">
             <h2 class="head-title">Sitios y aplicaciones</h2>
             <hr class="botm-line">
-            <p class="sec-para">Demostración de proyectos realizados.</p>
+            <p class="sec-para">Portafolio con nuestras más grandes experiencias.</p>
           </div>
         </div>
         <div class="col-md-9 col-sm-12">
-          {% for demo in demos %}
           <div class="col-sm-4 sm-margin-b-50" style="margin-bottom: 50px">
             <div class="margin-b-30">
                 <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
-                    <img style="width: 100%;" class="img-responsive" src="{{ demo.url_foto }}" alt="Latest Products Image">
+                    <img style="width: 60%;" class="img-responsive" src="{% static '/img/logoEnlace.jpeg' %}" alt="Latest Products Image">
                 </div>
             </div>
-            <h4><a href="#">{{demo.nombre}}</a> </h4>
-            <p>{{ demo.descripcion }}</p>
-            <a target="_blank" class="link" href="{{ demo.url_pag }}">Ver</a>
-          </div> 
-          {% endfor %}         
-        </div>
+            <h4><a href="#">MiEnlace México</a> </h4>
+            <p>Plataforma web para que clínicas y hospitales compren medicamentos, suministros y equipo médico de forma inteligente.</p>
+            <a target="_blank" class="link" href="https://mienlacemexico.com/">Ver</a>
+          </div>
+          <div class="col-sm-4 sm-margin-b-50" style="margin-bottom: 50px">
+            <div class="margin-b-30">
+                <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
+                    <img style="width: 60%;" class="img-responsive" src="{% static '/img/logoflete2.png' %}" alt="Latest Products Image">
+                </div>
+            </div>
+            <h4><a href="#">FleteSeguro</a> </h4>
+            <p>La plataforma digital que sincroniza oferta y demanda en entrega de mercancías.</p>
+            <a target="_blank" class="link" href="https://fleteseguro.com.mx/">Ver</a>
+          </div>   
       </div>
     </div>
   </section>
   <!---->
   
   <!-- Experience -->
-  <section id="feature" class="section-padding">
+  <!-- <section id="feature" class="section-padding">
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-sm-12">
@@ -204,7 +203,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   <!-- End Experience -->
 
 
