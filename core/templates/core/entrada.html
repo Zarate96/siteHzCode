@@ -1,0 +1,98 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  figure {
+    margin: 0rem !important;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<main>
+  <header class="header headerin">
+    <img
+      class="header__imagen"
+      src="{{ articulo.url_foto }}"
+      alt=""
+    />
+    <section class="header__top view" style="margin-right: 0 !important;">
+      <figure class="header__top--logo">
+        <img
+          src="{% static 'assets/imgs/logoHz2.png' %}"
+          alt="HzCode"
+        />
+      </figure>
+      <nav class="header__top--menu">
+        <div class="header__top--movil" id="closeMovil"> <i class="icon-arrow-left2"></i></div>
+        <div class="menu-menu-principal-container">
+            <ul id="menu-menu-principal" class="menu">
+                <li id="menu-item-4008"
+                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-4008">
+                    <a href="{% url 'core:inicio' %}">Inicio</a>
+                </li>
+                <li id="menu-item-1556"
+                    class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1554 current_page_item menu-item-1556">
+                    <a href="{% url 'core:portafolio' %}" aria-current="page">Portafolio</a>
+                </li>
+                <li id="menu-item-1070"
+                    class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1070">
+                    <a href="{% url 'core:blog' %}">Blog</a>
+                </li>
+                <li id="menu-item-4047"
+                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4047">
+                    <a href="{% url 'core:contacto' %}">Contacto</a>
+                </li>
+                <li>
+                    <input class="d-none" id="country_selector" type="text">
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="header__top--movil" id="openMovil"> <i class="icon-menu"></i></div>
+        <i class="icon-menu"></i>
+      </div>
+    </section>
+    <section class="header__sgr view">
+      <section class="header__sgr--iam title">
+        <h1>{{articulo.titulo}}</h1>
+      </section>
+    </section>
+  </header>
+  <section id="navbar" class="postInfo">
+    <div class="postInfo__in view">
+      <div class="postInfo__in--sec">
+        <ul style="margin-bottom: 0rem;">
+          <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://stivengordillo.com/que-es-el-shareting/" target="_blank">
+              <i class="icon-face"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/intent/tweet?text=&url=https://stivengordillo.com/que-es-el-shareting/" target="_blank">
+              <i class="icon-twitte"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://stivengordillo.com/que-es-el-shareting/" target="_blank">
+              <i class="icon-linked"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="contentpost">
+    <section class="contentpost__in view">
+      <article>
+        
+        {{articulo.contenido|safe}}
+
+      </article>
+    </section>
+  </section>
+</main>
+
+{% endblock %}

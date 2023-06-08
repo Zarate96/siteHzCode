@@ -1,0 +1,99 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  figure {
+    margin: 0rem !important;
+  }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+  {% include 'core/includes/headerHome.html' %}
+  <section class="contentpost" id="section-demo">
+    <section class="contentpost__in view">
+      <article>
+        <div class="portfolio-text">
+          Proyecto MiEnlace 2022
+        </div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-6 col-md-4">
+              <a data-fslightbox="gallery" href="{% static 'assets/imgs/imgMc2.png' %}">
+                <img class="img" src="{% static 'img/imgMc2.png' %}" />
+              </a>
+              <a data-fslightbox="gallery" href="{% static 'assets/imgs/imgMc7.png' %}">
+                <img class="img" src="{% static 'img/imgMc7.png' %}" />
+              </a>                
+              <a data-fslightbox="gallery" href="{% static 'assets/imgs/imgMc3.png' %}">
+                <img class="img" src="{% static 'img/imgMc3.png' %}" />
+              </a>
+            </div>
+            <div class="col-6 col-md-4">
+              <a data-fslightbox="gallery" href="{% static 'assets/imgs/imgMc4.png' %}">
+                <img class="img" src="{% static 'img/imgMc4.png' %}" />
+              </a>
+              <a data-fslightbox="gallery" href="{% static 'assets/imgs/imgMc1.png' %}">
+                <img class="img" src="{% static 'img/imgMc1.png' %}" />
+              </a>
+              <a data-fslightbox="gallery" href="{% static 'assets/imgs/imgMc6.png' %}">
+                <img class="img" src="{% static 'img/imgMc6.png' %}" />
+              </a>
+            </div>
+            <div class="col-6 col-md-4">
+              <a data-fslightbox="gallery" href="{% static 'assets/imgs/imgMc5.png' %}">
+                <img class="img" src="{% static 'img/imgMc5.png' %}" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-text">
+          Proyecto FleteSeguro 2022
+        </div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-6 col-md-4">
+              <a data-fslightbox href="{% static 'assets/imgs/imgFs2.png' %}">
+                <img class="img" src="{% static 'img/imgFs2.png' %}" />
+              </a>
+              <a data-fslightbox href="{% static 'assets/imgs/imgFs7.png' %}">
+                <img class="img" src="{% static 'img/imgFs7.png' %}" />
+              </a>
+              
+              
+              <a data-fslightbox href="{% static 'assets/imgs/imgFs3.png' %}">
+                <img class="img" src="{% static 'img/imgFs3.png' %}" />
+              </a>
+            </div>
+            <div class="col-6 col-md-4">
+              <a data-fslightbox href="{% static 'img/imgFs.png' %}">
+                <img class="img" src="{% static 'img/imgFs4.png' %}" />
+              </a>
+              <a data-fslightbox href="{% static 'img/imgFs.png' %}" >
+                <img class="img" src="{% static 'img/imgFs1.png' %}" />
+              </a>
+              
+              <a data-fslightbox href="{% static 'assets/imgs/imgFs6.png' %}">
+                <img class="img" src="{% static 'img/imgFs6.png' %}" />
+              </a>
+            </div>
+            <div class="col-6 col-md-4">
+              <a data-fslightbox href="{% static 'assets/imgs/imgFs5.png' %}">
+                <img class="img" src="{% static 'img/imgFs5.png' %}" />
+              </a>
+            </div>
+          </div>
+        </div>         
+      </article>
+    </section>
+  </section>
+
+  <script src="{% static 'assets/js/fslightbox.js' %}"></script>
+    
+  
+
+{% endblock %}

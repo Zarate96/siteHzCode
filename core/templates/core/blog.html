@@ -1,0 +1,174 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  figure {
+    margin: 0rem !important;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  {% include 'core/includes/headerHome.html' %}
+  <section class="homeblog">
+    <section class="homeblog__in view">
+      <section class="homeblog__in--content blogin">
+
+        {% if blogs %}
+          {% for blog in blogs %}
+          <article>
+            <figure>
+              <img
+                width="1536"
+                height="1024"
+                src="https://stivengordillo.com/wp-content/uploads/2022/10/vale-la-pena-coderhouse-chris-montgomeri.jpg"
+                class="attachment-recent-thumbnails size-recent-thumbnails wp-post-image"
+                alt="Vale la pena CoderHouse"
+                srcset="
+                "
+                sizes="(max-width: 1536px) 100vw, 1536px"
+              />
+            </figure>
+            <h2>{{blog.titulo}}</h2>
+            <section>
+              <p>
+                {{blog.resumen|safe|truncatechars:80}}
+              </p>
+            </section>
+            <a
+              class="link hvr-shutter-out-horizontal"
+              href="{% url 'core:articulo' blog.slug %}"
+              >Ver más</a>
+          </article>
+          {% endfor %}
+        {% endif %}
+        
+
+        <!-- <article>
+          <figure>
+            <img
+              width="1536"
+              height="1024"
+              src="https://stivengordillo.com/wp-content/uploads/2021/05/que-es-shareting-pic-by-ramin-talebi.jpg"
+              class="attachment-recent-thumbnails size-recent-thumbnails wp-post-image"
+              alt="Que es el shareparenting"
+              loading="lazy"
+              srcset="
+              "
+              sizes="(max-width: 1536px) 100vw, 1536px"
+            />
+          </figure>
+          <h2>Qué es el Shareting</h2>
+          <section>
+            <p>
+              si eres padre o madre, seguramente haz practicado el Shareting
+              de manera inconsciente. Conoce en qué consiste, sus riesgos y
+              algunas recomendaciones
+            </p>
+          </section>
+          <a
+            class="link hvr-shutter-out-horizontal"
+            href="https://stivengordillo.com/que-es-el-shareting/"
+            >Ver más</a
+          >
+        </article>
+
+        <article>
+          <figure>
+            <img
+              width="1536"
+              height="1024"
+              src="https://stivengordillo.com/wp-content/uploads/2021/05/crea-tu-marca-personal-matthew-slepper.jpg"
+              class="attachment-recent-thumbnails size-recent-thumbnails wp-post-image"
+              alt="Crea tú marca pesonal"
+              loading="lazy"
+              srcset="
+              "
+              sizes="(max-width: 1536px) 100vw, 1536px"
+            />
+          </figure>
+          <h2>Crea tú Marca Personal</h2>
+          <section>
+            <p>
+              Tú Marca Personal no es más que el resultado de lo que eres y
+              la muestra de tus esfuerzos para lograr tus objetivos de vida.
+              Conoce todos los factores que debes tener en cuenta para crear
+              una marca personal efectiva que te llevará a cumplir tus
+              objetivos personales y profesionales.
+            </p>
+          </section>
+          <a
+            class="link hvr-shutter-out-horizontal"
+            href="https://stivengordillo.com/crea-tu-marca-personal/"
+            >Ver más</a
+          >
+        </article> -->
+        <!-- </section>
+        <div class="paginacion">
+          <ol class="wp-paginate font-inherit">
+            <li><span class="page current">1</span></li>
+            <li>
+              <a
+                href="https://stivengordillo.com/blog/page/2/"
+                title="2"
+                aria-label="Go to page 2"
+                class="page"
+                >2</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://stivengordillo.com/blog/page/3/"
+                title="3"
+                aria-label="Go to page 3"
+                class="page"
+                >3</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://stivengordillo.com/blog/page/4/"
+                title="4"
+                aria-label="Go to page 4"
+                class="page"
+                >4</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://stivengordillo.com/blog/page/5/"
+                title="5"
+                aria-label="Go to page 5"
+                class="page"
+                >5</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://stivengordillo.com/blog/page/6/"
+                title="6"
+                aria-label="Go to page 6"
+                class="page"
+                >6</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://stivengordillo.com/blog/page/2"
+                class="next"
+                aria-label="Go to next page"
+                >&raquo;</a
+              >
+            </li>
+          </ol>
+        </div>-->
+      </section> 
+    </section>
+  </section>
+
+    
+  
+
+{% endblock %}

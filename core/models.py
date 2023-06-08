@@ -28,3 +28,34 @@ class Demo(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Recomendaciones(models.Model):
+    nombre = models.CharField(max_length=100)
+    puesto = models.CharField(max_length=100)
+    recomendacion = models.CharField(max_length=100)
+    fecha = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name_plural = "Recomendaciones"
+
+    def __str__(self):
+        return self.nombre
+    
+class Blogs(models.Model):
+    titulo = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True)
+    contenido = RichTextField(verbose_name="Contenido")
+    resumen = models.CharField(max_length=100)
+    fecha = models.DateTimeField(default=timezone.now)
+    url_foto = models.CharField(max_length=100)
+    activo = models.BooleanField(verbose_name="Blog activo", default=True)
+
+    class Meta:
+        verbose_name_plural = "Blogs"
+
+    def __str__(self):
+        return self.titulo
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.titulo)
+        super(Blogs, self).save(*args, **kwargs)

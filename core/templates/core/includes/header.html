@@ -1,0 +1,46 @@
+{% load static %}
+<header class="header">
+    <section class="header__top view">
+        <figure class="header__top--logo">
+            
+        </figure>
+        <nav class="header__top--menu">
+            <div class="header__top--movil" id="closeMovil"> <i class="icon-arrow-left2"></i></div>
+            <div class="menu-menu-principal-container">
+                <ul id="menu-menu-principal" class="menu">
+                    <li id="menu-item-4008"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-4008">
+                        <a href="{% url 'core:inicio' %}">Inicio</a>
+                    </li>
+                    <li id="menu-item-1556"
+                        class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1554 current_page_item menu-item-1556">
+                        <a href="{% url 'core:portafolio' %}" aria-current="page">Portafolio</a>
+                    </li>
+                    <li id="menu-item-1070"
+                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1070">
+                        <a href="{% url 'core:blog' %}">Blog</a>
+                    </li>
+                    <li id="menu-item-4047"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4047">
+                        <a href="{% url 'core:contacto' %}">Contacto</a>
+                    </li>
+                    <li>
+                        <input class="d-none" id="country_selector" type="text">
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="header__top--movil" id="openMovil"> <i class="icon-menu"></i></div>
+    </section>
+    <section class="header__sgr view">
+        <figure class="header__sgr--pic">
+            <img src="{% static '/assets/imgs/logoHz2.png' %}"
+                alt="HzCode" />
+        </figure>
+        <!-- <section class="header__sgr--iam">
+            <h1>Stiven Gordillo</h1>
+            <span>Estrategia Digital</span>
+        </section> -->
+    </section>
+</header>

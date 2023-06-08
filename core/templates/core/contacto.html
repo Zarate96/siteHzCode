@@ -1,0 +1,76 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+  figure {
+    margin: 0rem !important;
+  }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+{% include 'core/includes/headerHome.html' %}
+<main>
+  <section style="margin-bottom: 2rem">
+    <div class="container d-block">
+      <style>
+        #form-contact input,
+        #form-contact textarea {
+          background: var(--fourth-color);
+          color: white;
+          border: none;
+          transition: all 0.5s ease 0s;
+        }
+        #form-contact input:focus,
+        #form-contact textarea:focus {
+          background: var(--third-color);
+          color: black;
+          border: none;
+        }
+      </style>
+      <form
+        class="row w-100 mx-auto"
+        style="max-width: 800px"
+        id="form-contact"
+        action=""
+      >
+        <div class="col-md-6 mb-3">
+          <label class="text-white" for="">Nombre</label>
+          <input class="form-control" type="text" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="text-white" for="">Email</label>
+          <input class="form-control" type="text" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="text-white" for="">Teléfono</label>
+          <input class="form-control" type="text" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="text-white" for="">Sitio web</label>
+          <input class="form-control" type="text" />
+        </div>
+        <div class="col-md-12 mb-3">
+          <label class="text-white" for="">Mensaje</label>
+          <textarea
+            name=""
+            id=""
+            cols="20"
+            rows="5"
+            class="form-control"
+          ></textarea>
+        </div>
+        <div class="mb-3 text-center">
+          <button class="btn btn-warning btn-lg">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+{% endblock %}

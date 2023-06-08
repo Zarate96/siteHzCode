@@ -42,15 +42,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #My_apps
-    'core.apps.CoreConfig',
-
      #Third_apps
     'storages',
     'ckeditor',
+    'corsheaders',
+
+    #My_apps
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', #corsheaders
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -112,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -143,13 +144,6 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'success',
 }
 
-#ckeditor options
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': None,
-    }
-}
-
 #s3 BUCKET CONFIG
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default='')
@@ -158,7 +152,23 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_QUERYSTRING_AUTH = False
+
+# ckeditor options
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    }
+}
+#CKEDITOR_BASEPATH = f"https://s3.console.aws.amazon.com/s3/buckets/{AWS_STORAGE_BUCKET_NAME}/static/ckeditor/ckeditor/"
 
 #GOOGLE RECAPTCHA
 GOOGLE_RECAPTCHA_SECRET_KEY = config('GOOGLE_RECAPTCHA_SECRET_KEY', default='')
 GOOGLE_RECAPTCHA_SITE_KEY = config('GOOGLE_RECAPTCHA_SITE_KEY', default='')
+
+#CORS
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:8000',
+# ]
+
+CORS_ORIGIN_ALLOW_ALL=True
