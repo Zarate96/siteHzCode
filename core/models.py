@@ -47,7 +47,7 @@ class Blogs(models.Model):
     contenido = RichTextField(verbose_name="Contenido")
     resumen = models.CharField(max_length=100)
     fecha = models.DateTimeField(default=timezone.now)
-    url_foto = models.CharField(max_length=100)
+    image = models.ImageField(verbose_name="Foto de articulo", upload_to='img/blog_pics')
     activo = models.BooleanField(verbose_name="Blog activo", default=True)
 
     class Meta:

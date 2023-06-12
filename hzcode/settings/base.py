@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY_PRODUCTION')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -160,15 +160,14 @@ CKEDITOR_CONFIGS = {
         'toolbar': None,
     }
 }
-#CKEDITOR_BASEPATH = f"https://s3.console.aws.amazon.com/s3/buckets/{AWS_STORAGE_BUCKET_NAME}/static/ckeditor/ckeditor/"
 
 #GOOGLE RECAPTCHA
 GOOGLE_RECAPTCHA_SECRET_KEY = config('GOOGLE_RECAPTCHA_SECRET_KEY', default='')
 GOOGLE_RECAPTCHA_SITE_KEY = config('GOOGLE_RECAPTCHA_SITE_KEY', default='')
 
 #CORS
-# CORS_ALLOWED_ORIGINS = [
-#     'http://localhost:8000',
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+]
 
-CORS_ORIGIN_ALLOW_ALL=True
+# CORS_ORIGIN_ALLOW_ALL=True

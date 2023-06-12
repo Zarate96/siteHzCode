@@ -17,7 +17,9 @@ class Inicio(UserPassesTestMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args,**kwargs)
         recomendaciones = Recomendaciones.objects.all()
+        blogs = Blogs.objects.all()
         context['title'] = 'Home'
+        context['blogs'] = blogs
         context['recomendaciones'] = recomendaciones
         context['google_site_key'] = settings.GOOGLE_RECAPTCHA_SITE_KEY
         return context
@@ -72,6 +74,7 @@ class ArticuloDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = self.object.titulo
         return context
     
 @check_recaptcha
@@ -81,15 +84,15 @@ def mensaje(request):
         email = request.POST['email']
         subject = request.POST['subject']
         message = request.POST['message']
-        telefono = request.POST['phone']
+        phone = request.POST['phone']
 
-    if request.recaptcha_is_valid:    
-        mensaje = Mensajes(nombre=name, email=email, asunto=subject, mensaje=message, telefono=telefono)
+    if request.recaptcha_is_valid: 
+        mensaje = Mensajes(nombre=name, email=email, asunto=subject, mensaje=message, telefono=phone)
         mensaje.save()
         messages.success(request, 'Tu mensaje ha sido enviado, nos pondremos en contacto contigo en breve.')
 
     else:
         messages.error(request, 'Porfavor verifique la información')
 
-    return redirect(request.META['HTTP_REFERER'])
+    return redirect('core:inicio')
     #return render(request, 'pages/home.html', {})

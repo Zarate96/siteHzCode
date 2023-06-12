@@ -31,6 +31,9 @@
         </nav>
         <div class="header__top--movil" id="openMovil"> <i class="icon-menu"></i></div>
     </section>
+    {% if messages %}
+        {% include 'core/includes/messages.html' %}
+    {% endif %} 
     <section class="header__sgr view">
         <figure class="header__sgr--pic">
             <img src="{% static '/assets/imgs/logoHz2.png' %}"
