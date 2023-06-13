@@ -6,6 +6,17 @@
   figure {
     margin: 0rem !important;
   }
+  @media (max-width: 767px) {
+    .postInfo {
+      height: 50px;
+    }
+  }
+  @media (min-width: 767px) {
+    .header__top--logo img {
+      max-width: 400px;
+    }
+  }
+  
 </style>
 {% endblock %}
 
@@ -20,10 +31,9 @@
     />
     <section class="header__top view" style="margin-right: 0 !important;">
       <figure class="header__top--logo">
-        <img
-          src="{% static 'assets/imgs/logoHz2.png' %}"
-          alt="HzCode"
-        />
+        <a href="{% url 'core:inicio' %}">
+          <img src="{% static 'assets/imgs/logoHz2.png' %}" alt="HzCode"/>
+        </a>
       </figure>
       <nav class="header__top--menu">
         <div class="header__top--movil" id="closeMovil"> <i class="icon-arrow-left2"></i></div>
@@ -66,7 +76,7 @@
       <div class="postInfo__in--sec">
         <ul style="margin-bottom: 0rem;">
           <li>
-            <a href="https://www.facebook.com/sharer/sharer.php?url=http://localhost:8000/articulo/post-1-ejemplo/" target="_blank">
+            <a href="https://www.facebook.com/sharer/sharer.php?url=https://hzcode.mx//articulo/{{articulo.slug}}/" target="_blank">
               <i class="icon-face"></i>
             </a>
           </li>
