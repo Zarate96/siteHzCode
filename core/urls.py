@@ -1,10 +1,9 @@
 from django.urls import include, path
 from .views import *
-from django.conf.urls import (
-handler400, handler403, handler404, handler500
-)
 
 app_name = 'core'
+
+handler404 = 'helpers.views.handle_not_found'
 
 urlpatterns = [
     path('', Inicio.as_view(), name='inicio'),
@@ -16,4 +15,3 @@ urlpatterns = [
     
 ]
 
-handler404 = 'core.views.custom_page_not_found_view'
