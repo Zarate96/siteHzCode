@@ -3,15 +3,15 @@ from decouple import config
 from hzcode.settings.base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['hzcode.mx']
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-SITE_URL = 'https://mienlacemexico.com'
+SITE_URL = 'https://hzcode.mx/'
 PROTOCOL_HTTP = 'https'
 
 DATABASES = {
