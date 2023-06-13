@@ -1,5 +1,8 @@
 from django.urls import include, path
 from .views import *
+from django.conf.urls import (
+handler400, handler403, handler404, handler500
+)
 
 app_name = 'core'
 
@@ -12,3 +15,5 @@ urlpatterns = [
     path('articulo/<slug:slug>/', view=ArticuloDetailView.as_view(), name='articulo'),
     
 ]
+
+handler404 = 'core.views.handler404'
