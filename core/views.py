@@ -74,6 +74,7 @@ class ArticuloDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['facebook_id'] = settings.FACEBOOK_ID
         context['title'] = self.object.titulo
         return context
     
