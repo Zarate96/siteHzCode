@@ -15,6 +15,12 @@
   <meta property="linkedin:description" content="{{ articulo.resumen }}">
   <meta property="linkedin:image" content="{{ articulo.image.url }}">
   <meta property="linkedin:url" content="https://hzcode.mx/articulo/{{articulo.slug}}/">
+  <!-- Configuración para Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ articulo.titulo }}">
+  <meta name="twitter:description" content="{{ articulo.resumen }}">
+  <meta name="twitter:image" content="{{ articulo.image.url }}">
+  <meta name="twitter:url" content="https://hzcode.mx/articulo/{{articulo.slug}}/">
 {% endblock %}
 {% block extra_css %}
 <style>
