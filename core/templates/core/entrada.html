@@ -19,7 +19,12 @@
   
 </style>
 {% endblock %}
-
+{% block extra_head %}
+  <meta property="og:title" content="{{ articulo.titulo }}">
+  <meta property="og:description" content="{{ articulo.resumen }}">
+  <meta property="og:image" content="{{ articulo.image.url }}">
+  <meta property="og:url" content="https://hzcode.mx/articulo/{{articulo.slug}}/">
+{% endblock %}
 {% block content %}
 
 <main>
