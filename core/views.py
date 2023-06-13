@@ -99,5 +99,5 @@ def mensaje(request):
     #return render(request, 'pages/home.html', {})
 
 #HANDLERS
-def handler404(request, exception):
-    return render(request, 'core/handlers/404.html', status=404)
+def custom_page_not_found_view(request, exception):
+    return render(request, "core/handlers/404.html", {})

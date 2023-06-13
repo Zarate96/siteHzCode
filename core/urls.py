@@ -16,4 +16,4 @@ urlpatterns = [
     
 ]
 
-handler404 = 'core.views.handler404'
+handler404 = 'core.views.custom_page_not_found_view'
