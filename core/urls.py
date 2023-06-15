@@ -4,6 +4,7 @@ from .views import *
 app_name = 'core'
 
 handler404 = 'helpers.views.handle_not_found'
+handler500 = 'helpers.views.custom_error_view'
 
 urlpatterns = [
     path('', Inicio.as_view(), name='inicio'),
