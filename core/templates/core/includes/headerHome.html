@@ -36,8 +36,9 @@
     {% endif %} 
     <section class="header__sgr view">
         <figure class="header__sgr--pic">
-            <img src="{% static '/assets/imgs/logoHz2.png' %}"
-                alt="HzCode" />
+            <a href="{% url 'core:inicio' %}">
+                <img src="{% static '/assets/imgs/logoHz2.png' %}" alt="HzCode" />
+            </a>
         </figure>
     </section>
 </header>
