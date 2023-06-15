@@ -110,10 +110,10 @@
                             <div>
                                 <h2>
                                     Hugo Zarate Ortiz</h2><span>
-                                    Ingeniero en TIC's especializado en desarrollo web.</span>
-                                <p>
-                                    Mi experiencia abarca en proyectos como freelancer y en consultorías globales con clientes internacionales. Me considero un profesional autodidacta, 
-                                    siempre en busca de nuevos desafíos que me permitan ampliar mi experiencia y conocimientos. 
+                                    Ingeniero en TI especializado en desarrollo web.</span>
+                                <p>Me he desempeñado en una amplia variedad de proyectos como desarrollador web, desde trabajos independientes hasta 
+                                    colaboraciones con empresas internacionales de consultoría. Mi enfoque se basa en el aprendizaje autodidacta y la búsqueda constante 
+                                    de nuevos desafíos que me permitan expandir mis habilidades y conocimientos. 
                                 <p>Mi pasión por aprender me ha llevado a trabajar en diferentes proyectos y tecnologías, lo que me 
                                     permite aportar <span>soluciones innovadoras y efectivas</span>
                                     a cualquier proyecto en el que esté involucrado.</p>
@@ -450,9 +450,10 @@
                         <!-- <div class="subtitle" data-swiper-parallax="-200">Subtitle</div> -->
                         <div class="text" data-swiper-parallax="-100">
                             <p>
-                                Puedo implementar aplicaciones en servidores en la nube como Ionos, AWS y Digital Ocean.
-                                Puede configurar servidores, crear instancias y gestionar bases de datos para garantizar
-                                un despliegue sin problemas.
+                                Tengo experiencia en la implementación de aplicaciones en servidores cloud, incluyendo plataformas como AWS, Digital Ocean, etc. 
+                                Puedo encargarme de la configuración de servidores, la creación de instancias y la gestión de bases de datos para asegurar un despliegue 
+                                fluido y sin problemas. Estoy familiarizado con los conceptos y herramientas necesarios para optimizar el rendimiento y la seguridad de 
+                                las aplicaciones en entornos de nube.
                             </p>
                         </div>
                     </div>
@@ -510,33 +511,34 @@
                     </li>
                     <li>
                         <header>
-                            <figure><!-- <img src="" alt="Raúl Alvarado Mendez"/>
-                    -->
+                            <figure> <!-- <img src="" alt="Jhon Carlos Salamanca"/>
+                -->
                                 <figcaption>
-                                    <h3>Dr. Alberto Escalante Hernández</h3><span>Investigador SNI II</span>
+                                    <h3>Juan León Cruz</h3><span>Líder de Proyecto - Kraken</span>
                                 </figcaption>
                             </figure>
                         </header>
                         <article>
-                            <P>Zarate posee gran conocimiento en el Marketing Digital, es un líder orientado al
-                                resultado y muy humano con su equipo de trabajo, siempre esta a la vanguardia con las
-                                nuevas tecnologías que faciliten la implementación de sus proyectos</P>
+                            <P>Hugo Zarate, es una persona dedicada, apasionada y enfocada en temas de programación y desarrollo de soluciones.</P>
                         </article>
                     </li>
                     <li>
                         <header>
-                            <figure> <!-- <img src="" alt="Jhon Carlos Salamanca"/>
+                            <figure><!-- <img src="" 
+            alt="Elizabeth Arias"/>
                 -->
                                 <figcaption>
-                                    <h3>Jhon Carlos Salamanca</h3><span>Director de transformación digital</span>
+                                    <h3>Giancarlo Marino</h3><span>	FOUNDER, CEO at MIENLACE</span>
                                 </figcaption>
                             </figure>
                         </header>
                         <article>
-                            <P>Zarate, Es una persona dedicada, apasionada y enfocada en todo lo relacionado con le
-                                marketing digital y proyectos digitales.</P>
+                            <P>Hugo es una persona dedicada que cumple sus compromisos en tiempo y forma,
+                                colaborativa y muy capaz, es inquieto, busca soluciones cuando las respuestas
+                                no las tiene a la mano.</P>
                         </article>
                     </li>
+                    
                 </ul>
             </section>
         </section>
@@ -549,22 +551,33 @@
                 </header>
                 <section class="homeblog__in--content">
                     {% if blogs %}
-                        {% for post in blogs %}
-                        <article>
-                            <figure class="blog_img">
-                                <img style="height: 370px !important;" src="{{ post.image.url }}" alt="imgHzCodeBlog" />
-                            </figure>
-                            <h2>{{ post.titulo }}</h2>
-                            <section>
-                                <p>{{post.resumen|safe|truncatechars:80}}
-                                </p>
-                            </section>
-                            <a class="link hvr-shutter-out-horizontal"
-                                href="{% url 'core:articulo' post.slug %}">Ver
-                                más</a>
-                        </article>
-                        {% endfor %}
-                    {% endif %}
+          {% for blog in blogs %}
+          <article>
+            <figure>
+              <img
+                width="1536"
+                height="1024"
+                src="{{ blog.image.url }}"
+                class="attachment-recent-thumbnails size-recent-thumbnails wp-post-image"
+                alt="hzcodeimg"
+                srcset="
+                "
+                sizes="(max-width: 1536px) 100vw, 1536px"
+              />
+            </figure>
+            <h2>{{blog.titulo}}</h2>
+            <section>
+              <p>
+                {{blog.resumen|safe|truncatechars:80}}
+              </p>
+            </section>
+            <a
+              class="link hvr-shutter-out-horizontal"
+              href="{% url 'core:articulo' blog.slug %}"
+              >Ver más</a>
+          </article>
+          {% endfor %}
+        {% endif %}
                     <!-- <article>
                             <figure>
                                 <img width="1536" height="1024"
