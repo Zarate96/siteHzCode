@@ -1,0 +1,122 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  hzcode.mx backend
+  SAM Template for the serverless migration of the django application.
+
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: python3.11
+    Architectures:
+      - x86_64
+
+Resources:
+  # ----------------------------------------------------------------------
+  # DYNAMODB TABLES
+  # ----------------------------------------------------------------------
+  HzCodeBlogTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: hzcode-blog
+      AttributeDefinitions:
+        - AttributeName: slug
+          AttributeType: S
+      KeySchema:
+        - AttributeName: slug
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  HzCodeExperienceTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: hzcode-experience
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  HzCodeMessagesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: hzcode-messages
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  HzCodeQuotesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: hzcode-quotes
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  # ----------------------------------------------------------------------
+  # LAMBDA FUNCTIONS
+  # ----------------------------------------------------------------------
+  BlogFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/blog/
+      Handler: app.lambda_handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref HzCodeBlogTable
+      Environment:
+        Variables:
+          ADMIN_SECRET: "admin123" # In production, set via AWS SecretsManager
+      Events:
+        GetBlogList:
+          Type: Api
+          Properties:
+            Path: /api/blog
+            Method: get
+        GetBlogDetail:
+          Type: Api
+          Properties:
+            Path: /api/blog/{slug}
+            Method: get
+        CreateBlog:
+          Type: Api
+          Properties:
+            Path: /api/blog
+            Method: post
+        DeleteBlog:
+          Type: Api
+          Properties:
+            Path: /api/blog/{slug}
+            Method: delete
+
+  ContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/contact/
+      Handler: app.lambda_handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref HzCodeMessagesTable
+        - SESCrudPolicy:
+            IdentityName: "hzcode.mx"
+      Events:
+        PostContactMsg:
+          Type: Api
+          Properties:
+            Path: /api/contact
+            Method: post
+
+Outputs:
+  ApiEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

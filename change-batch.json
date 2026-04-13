@@ -1,0 +1,18 @@
+{
+  "Comment": "ACM Validation",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "_8922db361d655ce7df34da7080a104c0.hzcode.mx.",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "_667aeb4303e2e9b3a13d2f193dafb337.jkddzztszm.acm-validations.aws."
+          }
+        ]
+      }
+    }
+  ]
+}
