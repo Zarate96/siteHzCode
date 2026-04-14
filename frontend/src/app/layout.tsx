@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 export default function RootLayout({
   children,
@@ -31,6 +32,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-[#050505]" suppressHydrationWarning>
+        <Navbar />
         <main className="flex-grow">
           {children}
         </main>

@@ -10,6 +10,11 @@ Globals:
     Runtime: python3.11
     Architectures:
       - x86_64
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,OPTIONS,PUT,DELETE'"
+      AllowHeaders: "'Content-Type,Authorization'"
+      AllowOrigin: "'*'"
 
 Resources:
   # ----------------------------------------------------------------------

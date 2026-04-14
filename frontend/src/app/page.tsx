@@ -6,8 +6,8 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { 
-  Terminal, Server, Code2, Cloud, Quote, ChevronRight, CheckCircle2 
+import {
+  Terminal, Server, Code2, Cloud, Quote, ChevronRight, CheckCircle2
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -16,26 +16,26 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#050505] text-white overflow-hidden">
-      
+
       {/* 1. HEADER SECTION (Parallax / Center) */}
       <header className="relative h-screen flex justify-center items-center overflow-hidden">
         {/* Abstract animated background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#10141e] to-[#0d1117]">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-hzgold-600/20 rounded-full blur-[120px]"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-hzgold-700/20 rounded-full blur-[120px]"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-hzgold-600/20 rounded-full blur-[120px]"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-hzgold-700/20 rounded-full blur-[120px]"></div>
         </div>
-        
+
         <div className="relative z-10 text-center px-4">
           <div className="flex justify-center mb-6">
             {/* The src="/logo.png" automatically looks in the frontend/public directory */}
-            <img 
-              src="/logo.png" 
-              alt="HzCode" 
-              className="h-20 md:h-28 object-contain drop-shadow-[0_0_15px_rgba(184,150,107,0.3)] hover:scale-105 transition-transform duration-500" 
+            <img
+              src="/logo.png"
+              alt="HzCode"
+              className="h-20 md:h-28 object-contain drop-shadow-[0_0_15px_rgba(184,150,107,0.3)] hover:scale-105 transition-transform duration-500"
             />
           </div>
           <span className="text-xl md:text-3xl font-[Lora] italic text-gray-300 tracking-wide block mb-8">
-            Desarrollo Web Serverless
+            Desarrollo de software
           </span>
           <a href="#about" className="inline-flex items-center text-hzgold-400 hover:text-blue-300 transition-colors">
             Explorar <ChevronRight className="ml-1 w-5 h-5 animate-bounce" />
@@ -47,13 +47,13 @@ export default function Home() {
       <section id="about" className="max-w-6xl mx-auto py-24 px-4">
         {/* Tab Controls */}
         <div className="flex border-b border-gray-800 mb-12">
-          <button 
+          <button
             onClick={() => setActiveTab('about')}
             className={`px-8 py-4 text-sm md:text-lg font-bold font-[Manrope] uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'about' ? 'text-hzgold-400 border-hzgold-400 bg-hzgold-900/10' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
           >
             Sobre mí
           </button>
-          <button 
+          <button
             onClick={() => setActiveTab('experience')}
             className={`px-8 py-4 text-sm md:text-lg font-bold font-[Manrope] uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'experience' ? 'text-hzgold-400 border-hzgold-400 bg-hzgold-900/10' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
           >
@@ -92,30 +92,30 @@ export default function Home() {
             <div className="space-y-8">
               {/* Stefanini */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
-                 <div className="md:col-span-3">
-                   <div className="h-32 bg-gray-900 rounded-xl flex items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">Stefanini Logo</div>
-                 </div>
-                 <div className="md:col-span-9">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Desarrollador Web | Stefanini</h2>
-                    <span className="text-gray-500 font-mono mb-4 block">stefanini.com</span>
-                    <p className="text-gray-300 text-lg leading-relaxed">
-                      Formó parte del equipo Kraken de Walmart, en el que nos enfocamos en la generación automatizada de reportes que incluyen información detallada de Walmart y sus competidores. Desarrollo de herramientas para recopilación y análisis de datos.
-                    </p>
-                 </div>
+                <div className="md:col-span-3">
+                  <div className="h-32 bg-gray-900 rounded-xl flex items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">Stefanini Logo</div>
+                </div>
+                <div className="md:col-span-9">
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Desarrollador Web | Stefanini</h2>
+                  <span className="text-gray-500 font-mono mb-4 block">stefanini.com</span>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    Formó parte del equipo Kraken de Walmart, en el que nos enfocamos en la generación automatizada de reportes que incluyen información detallada de Walmart y sus competidores. Desarrollo de herramientas para recopilación y análisis de datos.
+                  </p>
+                </div>
               </div>
 
               {/* Inetum */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
-                 <div className="md:col-span-3">
-                   <div className="h-32 bg-gray-900 rounded-xl flex items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">Inetum Logo</div>
-                 </div>
-                 <div className="md:col-span-9">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Desarrollador Python | Inetum</h2>
-                    <span className="text-gray-500 font-mono mb-4 block">inetum.com</span>
-                    <p className="text-gray-300 text-lg leading-relaxed">
-                      Formé parte del equipo de automatización de Telefónica, encargado del desarrollo e implementación de diversos tipos de soluciones web (Django) y scripts en Python para automatización corporativa.
-                    </p>
-                 </div>
+                <div className="md:col-span-3">
+                  <div className="h-32 bg-gray-900 rounded-xl flex items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">Inetum Logo</div>
+                </div>
+                <div className="md:col-span-9">
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Desarrollador Python | Inetum</h2>
+                  <span className="text-gray-500 font-mono mb-4 block">inetum.com</span>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    Formé parte del equipo de automatización de Telefónica, encargado del desarrollo e implementación de diversos tipos de soluciones web (Django) y scripts en Python para automatización corporativa.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -127,12 +127,12 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Habilidades Técnicas</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-            {[ 
-              { name: 'Python', pct: 'w-[95%]', icon: <Terminal className="w-8 h-8"/> },
-              { name: 'Django', pct: 'w-[90%]', icon: <Server className="w-8 h-8"/> },
-              { name: 'AWS',    pct: 'w-[85%]', icon: <Cloud className="w-8 h-8"/> },
-              { name: 'Golang', pct: 'w-[75%]', icon: <Code2 className="w-8 h-8"/> },
-              { name: 'Flask',  pct: 'w-[80%]', icon: <Server className="w-8 h-8"/> },
+            {[
+              { name: 'Python', pct: 'w-[95%]', icon: <Terminal className="w-8 h-8" /> },
+              { name: 'Django', pct: 'w-[90%]', icon: <Server className="w-8 h-8" /> },
+              { name: 'AWS', pct: 'w-[85%]', icon: <Cloud className="w-8 h-8" /> },
+              { name: 'Golang', pct: 'w-[75%]', icon: <Code2 className="w-8 h-8" /> },
+              { name: 'Flask', pct: 'w-[80%]', icon: <Server className="w-8 h-8" /> },
             ].map((skill, i) => (
               <div key={i} className="bg-[#111111] border border-gray-800 rounded-xl p-6 text-center hover:-translate-y-2 hover:border-hzgold-500/50 transition-all duration-300 shadow-xl group">
                 <div className="w-16 h-16 mx-auto bg-gray-900 rounded-full flex items-center justify-center text-gray-400 group-hover:text-hzgold-400 transition-colors mb-4">
@@ -152,7 +152,7 @@ export default function Home() {
       <section className="py-24 max-w-6xl mx-auto px-4">
         <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Servicios</h2>
         <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative bg-[#0a0a0a]">
-           <Swiper
+          <Swiper
             modules={[Pagination, Navigation, Autoplay]}
             pagination={{ clickable: true }}
             navigation
@@ -194,17 +194,17 @@ export default function Home() {
           <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Recomendaciones</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { 
+              {
                 text: "Hugo es una persona dedicada que cumple sus compromisos en tiempo y forma, colaborativa y muy capaz. Inquieto, busca soluciones.",
                 name: "Giancarlo Marino",
                 title: "CEO at MIENLACE"
               },
-              { 
+              {
                 text: "Excelente colaborador, comprometido, responsable y fiel cumplidor de sus obligaciones.  Preocupado siempre por mejorar.",
                 name: "Oscar Daniel Vásquez Cruz",
                 title: "Director de Proyectos - Cloud TI"
               },
-              { 
+              {
                 text: "Profesionista dedicado, apasionado y enfocado completamente en temas de programación y desarrollo de alta disponibilidad.",
                 name: "Juan León Cruz",
                 title: "Líder de Proyecto - Kraken"

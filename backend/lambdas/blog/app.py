@@ -52,7 +52,8 @@ def lambda_handler(event, context):
                 
         elif path == '/api/blog' and http_method == 'POST':
             # Admin create/edit blog post
-            auth_header = event.get('headers', {}).get('authorization', '')
+            headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
+            auth_header = headers.get('authorization', '')
             admin_secret = os.environ.get('ADMIN_SECRET', 'admin123')
             
             if auth_header != f"Bearer {admin_secret}":
@@ -72,7 +73,8 @@ def lambda_handler(event, context):
 
         elif path.startswith('/api/blog/') and http_method == 'DELETE':
             # Admin delete blog post
-            auth_header = event.get('headers', {}).get('authorization', '')
+            headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
+            auth_header = headers.get('authorization', '')
             admin_secret = os.environ.get('ADMIN_SECRET', 'admin123')
             
             if auth_header != f"Bearer {admin_secret}":
