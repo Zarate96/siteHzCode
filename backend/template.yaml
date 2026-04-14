@@ -80,6 +80,57 @@ Resources:
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
 
+  HzCodePortfolioTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: hzcode-portfolio
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  HzCodeAboutTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: hzcode-about
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  HzCodeMediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: hzcode-mx-media-870819815698
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders: ['*']
+            AllowedMethods: [GET, PUT, POST]
+            AllowedOrigins: ['*']
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+
+  HzCodeMediaBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref HzCodeMediaBucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub 'arn:aws:s3:::hzcode-mx-media-870819815698/*'
+
   # ----------------------------------------------------------------------
   # LAMBDA FUNCTIONS
   # ----------------------------------------------------------------------
@@ -164,6 +215,78 @@ Resources:
           Type: Api
           Properties:
             Path: /api/auth/login
+            Method: post
+
+  PortfolioFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/portfolio/
+      Handler: app.lambda_handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref HzCodePortfolioTable
+      Environment:
+        Variables:
+          JWT_SECRET: "my-super-secret-jwt-key"
+          TABLE_NAME: "hzcode-portfolio"
+      Events:
+        GetPortfolio:
+          Type: Api
+          Properties:
+            Path: /api/portfolio
+            Method: get
+        CreateProject:
+          Type: Api
+          Properties:
+            Path: /api/portfolio
+            Method: post
+        DeleteProject:
+          Type: Api
+          Properties:
+            Path: /api/portfolio/{id}
+            Method: delete
+
+  AboutFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/about/
+      Handler: app.lambda_handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref HzCodeAboutTable
+      Environment:
+        Variables:
+          JWT_SECRET: "my-super-secret-jwt-key"
+          TABLE_NAME: "hzcode-about"
+      Events:
+        GetAbout:
+          Type: Api
+          Properties:
+            Path: /api/about
+            Method: get
+        UpdateAbout:
+          Type: Api
+          Properties:
+            Path: /api/about
+            Method: put
+
+  UploadFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/upload/
+      Handler: app.lambda_handler
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref HzCodeMediaBucket
+      Environment:
+        Variables:
+          JWT_SECRET: "my-super-secret-jwt-key"
+          MEDIA_BUCKET: "hzcode-mx-media-870819815698"
+      Events:
+        GetUploadUrl:
+          Type: Api
+          Properties:
+            Path: /api/upload
             Method: post
 
 Outputs:

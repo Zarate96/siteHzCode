@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { api } from '@/services/api';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -13,6 +14,17 @@ import Link from 'next/link';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'about' | 'experience'>('about');
+  const [about, setAbout] = useState<any>(null);
+
+  useEffect(() => {
+    api.getAbout().then((data) => { if (data) setAbout(data); });
+  }, []);
+
+  const name = about?.name || 'Hugo Zarate Ortiz';
+  const title = about?.title || 'Ingeniero en TI especializado en desarrollo web.';
+  const bio1 = about?.bio_1 || 'Me he desempeñado en una amplia variedad de proyectos como desarrollador web, desde trabajos independientes hasta colaboraciones con empresas internacionales de consultoría. Mi enfoque se basa en el aprendizaje autodidacta y la búsqueda constante de nuevos desafíos.';
+  const bio2 = about?.bio_2 || 'Mi pasión por aprender me ha llevado a trabajar en diferentes proyectos y tecnologías, lo que me permite aportar <strong>soluciones innovadoras y efectivas</strong> a cualquier proyecto en el que esté involucrado.';
+  const avatarUrl = about?.avatar_url || '';
 
   return (
     <main className="min-h-screen bg-[#050505] text-white overflow-hidden">
@@ -63,19 +75,19 @@ export default function Home() {
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-16">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm">
               <div className="md:col-span-8">
-                <h2 className="text-3xl md:text-4xl font-bold mb-3">Hugo Zarate Ortiz</h2>
-                <span className="text-hzgold-400 text-lg block mb-6">Ingeniero en TI especializado en desarrollo web.</span>
-                <p className="mb-4 text-gray-300 text-lg leading-relaxed">
-                  Me he desempeñado en una amplia variedad de proyectos como desarrollador web, desde trabajos independientes hasta colaboraciones con empresas internacionales de consultoría. Mi enfoque se basa en el aprendizaje autodidacta y la búsqueda constante de nuevos desafíos.
-                </p>
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  Mi pasión por aprender me ha llevado a trabajar en diferentes proyectos y tecnologías, lo que me permite aportar <strong className="text-white">soluciones innovadoras y efectivas</strong> a cualquier proyecto en el que esté involucrado.
-                </p>
+                <h2 className="text-3xl md:text-4xl font-bold mb-3">{name}</h2>
+                <span className="text-hzgold-400 text-lg block mb-6">{title}</span>
+                <p className="mb-4 text-gray-300 text-lg leading-relaxed">{bio1}</p>
+                <p className="text-gray-300 text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: bio2 }} />
               </div>
               <div className="md:col-span-4 flex justify-center">
                 <div className="w-56 h-56 rounded-2xl bg-gradient-to-tr from-hzgold-600 to-hzgold-900 p-1 rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
-                  <div className="w-full h-full bg-[#050505] rounded-xl flex items-center justify-center text-gray-500 overflow-hidden relative">
-                    <div className="absolute inset-0 bg-hzgold-500/10 flex items-center justify-center">Avatar</div>
+                  <div className="w-full h-full bg-[#050505] rounded-xl overflow-hidden relative">
+                    {avatarUrl ? (
+                      <img src={avatarUrl} alt={name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="absolute inset-0 bg-hzgold-500/10 flex items-center justify-center text-gray-500">Avatar</div>
+                    )}
                   </div>
                 </div>
               </div>

@@ -113,5 +113,79 @@ export const api = {
     return await response.json();
   },
   
-  // En un futuro añadiremos las llamadas a experiencia, portafolio y recomendaciones.
+  // --- PORTFOLIO ---
+  async getProjects() {
+    try {
+      if (!API_BASE_URL) return [];
+      const response = await fetch(`${API_BASE_URL}/api/portfolio`);
+      if (!response.ok) return [];
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      return [];
+    }
+  },
+
+  async createProject(projectData: any, token: string) {
+    const response = await fetch(`${API_BASE_URL}/api/portfolio`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify(projectData),
+    });
+    if (!response.ok) throw new Error('Failed to create project');
+    return await response.json();
+  },
+
+  async deleteProject(id: string, token: string) {
+    const response = await fetch(`${API_BASE_URL}/api/portfolio/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (!response.ok) throw new Error('Failed to delete project');
+    return await response.json();
+  },
+
+  // --- ABOUT ---
+  async getAbout() {
+    try {
+      if (!API_BASE_URL) return null;
+      const response = await fetch(`${API_BASE_URL}/api/about`);
+      if (!response.ok) return null;
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching about:', error);
+      return null;
+    }
+  },
+
+  async updateAbout(aboutData: any, token: string) {
+    const response = await fetch(`${API_BASE_URL}/api/about`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify(aboutData),
+    });
+    if (!response.ok) throw new Error('Failed to update about content');
+    return await response.json();
+  },
+
+  // --- IMAGE UPLOAD ---
+  async getPresignedUploadUrl(filename: string, contentType: string, token: string): Promise<{ upload_url: string; public_url: string }> {
+    const response = await fetch(`${API_BASE_URL}/api/upload`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ filename, content_type: contentType }),
+    });
+    if (!response.ok) throw new Error('Failed to get upload URL');
+    return await response.json();
+  },
+
+  async uploadFileToS3(uploadUrl: string, file: File): Promise<void> {
+    const response = await fetch(uploadUrl, {
+      method: 'PUT',
+      headers: { 'Content-Type': file.type },
+      body: file,
+    });
+    if (!response.ok) throw new Error('Failed to upload image to S3');
+  },
 };
+
