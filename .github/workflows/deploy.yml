@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy-backend:
@@ -71,6 +71,5 @@ jobs:
       - name: Deploy to S3
         run: aws s3 sync frontend/out s3://hzcode-mx-frontend-870819815698 --delete
 
-      # In the future, attach a CloudFront Invalidation step here:
-      # - name: Invalidate CloudFront
-      #   run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --paths "/*"
+      - name: Invalidate CloudFront
+        run: aws cloudfront create-invalidation --distribution-id E1P8QPVFRFKGXD --paths "/*"
