@@ -127,12 +127,25 @@ Resources:
             TableName: !Ref HzCodeMessagesTable
         - SESCrudPolicy:
             IdentityName: "hzcode.mx"
+      Environment:
+        Variables:
+          JWT_SECRET: "my-super-secret-jwt-key" # Keep identical to BlogFunction for shared Admin auth
       Events:
         PostContactMsg:
           Type: Api
           Properties:
             Path: /api/contact
             Method: post
+        GetMessages:
+          Type: Api
+          Properties:
+            Path: /api/contact
+            Method: get
+        UpdateMessage:
+          Type: Api
+          Properties:
+            Path: /api/contact/{id}
+            Method: put
 
   AuthFunction:
     Type: AWS::Serverless::Function

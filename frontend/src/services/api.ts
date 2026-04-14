@@ -84,6 +84,34 @@ export const api = {
       throw error;
     }
   },
+
+  async getMessages(token: string) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) throw new Error('Authorization failed or server error');
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      return [];
+    }
+  },
+
+  async updateMessageStatus(id: string, isAnswered: boolean, token: string) {
+    const response = await fetch(`${API_BASE_URL}/api/contact/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ is_answered: isAnswered })
+    });
+    if (!response.ok) throw new Error('Authorization failed or server error');
+    return await response.json();
+  },
   
   // En un futuro añadiremos las llamadas a experiencia, portafolio y recomendaciones.
 };
