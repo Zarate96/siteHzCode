@@ -57,12 +57,20 @@ def lambda_handler(event, context):
             admin_secret = os.environ.get('ADMIN_SECRET', 'admin123')
             
             if auth_header != f"Bearer {admin_secret}":
-                return {'statusCode': 401, 'body': json.dumps({'message': 'Unauthorized'})}
+                return {
+                    'statusCode': 401,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'message': 'Unauthorized'})
+                }
                 
             body = json.loads(event.get('body', '{}'))
             slug = body.get('slug')
             if not slug:
-                return {'statusCode': 400, 'body': json.dumps({'message': 'Slug is required'})}
+                return {
+                    'statusCode': 400,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'message': 'Slug is required'})
+                }
                 
             table.put_item(Item=body)
             return {
@@ -78,7 +86,11 @@ def lambda_handler(event, context):
             admin_secret = os.environ.get('ADMIN_SECRET', 'admin123')
             
             if auth_header != f"Bearer {admin_secret}":
-                return {'statusCode': 401, 'body': json.dumps({'message': 'Unauthorized'})}
+                return {
+                    'statusCode': 401,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'message': 'Unauthorized'})
+                }
                 
             slug = event['pathParameters'].get('slug')
             table.delete_item(Key={'slug': slug})
@@ -91,10 +103,12 @@ def lambda_handler(event, context):
     except ClientError as e:
         return {
             'statusCode': 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
             'body': json.dumps({'error': str(e)})
         }
         
     return {
         'statusCode': 400,
+        'headers': {'Access-Control-Allow-Origin': '*'},
         'body': json.dumps({'message': 'Invalid request'})
     }

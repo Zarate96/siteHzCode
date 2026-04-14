@@ -34,9 +34,6 @@ export default function Home() {
               className="h-20 md:h-28 object-contain drop-shadow-[0_0_15px_rgba(184,150,107,0.3)] hover:scale-105 transition-transform duration-500"
             />
           </div>
-          <span className="text-xl md:text-3xl font-[Lora] italic text-gray-300 tracking-wide block mb-8">
-            Desarrollo de software
-          </span>
           <a href="#about" className="inline-flex items-center text-hzgold-400 hover:text-blue-300 transition-colors">
             Explorar <ChevronRight className="ml-1 w-5 h-5 animate-bounce" />
           </a>
