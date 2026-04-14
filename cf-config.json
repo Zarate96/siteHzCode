@@ -1,0 +1,48 @@
+{
+  "CallerReference": "hzcode-migration-1",
+  "Aliases": {
+      "Quantity": 1,
+      "Items": ["hzcode.mx"]
+  },
+  "DefaultRootObject": "index.html",
+  "Origins": {
+      "Quantity": 1,
+      "Items": [
+          {
+              "Id": "S3-hzcode-mx-frontend",
+              "DomainName": "hzcode-mx-frontend-870819815698.s3-website-us-east-1.amazonaws.com",
+              "CustomOriginConfig": {
+                  "HTTPPort": 80,
+                  "HTTPSPort": 443,
+                  "OriginProtocolPolicy": "http-only"
+              }
+          }
+      ]
+  },
+  "DefaultCacheBehavior": {
+      "TargetOriginId": "S3-hzcode-mx-frontend",
+      "ViewerProtocolPolicy": "redirect-to-https",
+      "MinTTL": 0,
+      "AllowedMethods": {
+          "Quantity": 2,
+          "Items": ["HEAD", "GET"],
+          "CachedMethods": {
+              "Quantity": 2,
+              "Items": ["HEAD", "GET"]
+          }
+      },
+      "ForwardedValues": {
+          "QueryString": false,
+          "Cookies": {
+              "Forward": "none"
+          }
+      }
+  },
+  "Comment": "HZCode MX Frontend",
+  "Enabled": true,
+  "ViewerCertificate": {
+      "ACMCertificateArn": "arn:aws:acm:us-east-1:870819815698:certificate/c8255f2b-4d9a-4f02-aa07-597ac28d946c",
+      "SSLSupportMethod": "sni-only",
+      "MinimumProtocolVersion": "TLSv1.2_2021"
+  }
+}

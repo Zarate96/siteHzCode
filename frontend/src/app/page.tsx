@@ -15,24 +15,24 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'about' | 'experience'>('about');
 
   return (
-    <main className="min-h-screen bg-[#0d1117] text-white overflow-hidden">
+    <main className="min-h-screen bg-[#050505] text-white overflow-hidden">
       
       {/* 1. HEADER SECTION (Parallax / Center) */}
       <header className="relative h-screen flex justify-center items-center overflow-hidden">
         {/* Abstract animated background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#10141e] to-[#0d1117]">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px]"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]"></div>
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-hzgold-600/20 rounded-full blur-[120px]"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-hzgold-700/20 rounded-full blur-[120px]"></div>
         </div>
         
         <div className="relative z-10 text-center px-4">
-          <h1 className="text-4xl md:text-7xl font-bold mb-6 font-[Manrope] bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-300">
+          <h1 className="text-4xl md:text-7xl font-bold mb-6 font-[Manrope] bg-clip-text text-transparent bg-gradient-to-r from-hzgold-400 to-hzgold-300">
             HzCode
           </h1>
           <span className="text-xl md:text-3xl font-[Lora] italic text-gray-300 tracking-wide block mb-8">
             Desarrollo Web Serverless
           </span>
-          <a href="#about" className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors">
+          <a href="#about" className="inline-flex items-center text-hzgold-400 hover:text-blue-300 transition-colors">
             Explorar <ChevronRight className="ml-1 w-5 h-5 animate-bounce" />
           </a>
         </div>
@@ -44,13 +44,13 @@ export default function Home() {
         <div className="flex border-b border-gray-800 mb-12">
           <button 
             onClick={() => setActiveTab('about')}
-            className={`px-8 py-4 text-sm md:text-lg font-bold font-[Manrope] uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'about' ? 'text-blue-400 border-blue-400 bg-blue-900/10' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
+            className={`px-8 py-4 text-sm md:text-lg font-bold font-[Manrope] uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'about' ? 'text-hzgold-400 border-hzgold-400 bg-hzgold-900/10' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
           >
             Sobre mí
           </button>
           <button 
             onClick={() => setActiveTab('experience')}
-            className={`px-8 py-4 text-sm md:text-lg font-bold font-[Manrope] uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'experience' ? 'text-blue-400 border-blue-400 bg-blue-900/10' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
+            className={`px-8 py-4 text-sm md:text-lg font-bold font-[Manrope] uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'experience' ? 'text-hzgold-400 border-hzgold-400 bg-hzgold-900/10' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
           >
             Experiencia
           </button>
@@ -59,10 +59,10 @@ export default function Home() {
         {/* Tab Content: About */}
         {activeTab === 'about' && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-16">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#161b22]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm">
               <div className="md:col-span-8">
                 <h2 className="text-3xl md:text-4xl font-bold mb-3">Hugo Zarate Ortiz</h2>
-                <span className="text-blue-400 text-lg block mb-6">Ingeniero en TI especializado en desarrollo web.</span>
+                <span className="text-hzgold-400 text-lg block mb-6">Ingeniero en TI especializado en desarrollo web.</span>
                 <p className="mb-4 text-gray-300 text-lg leading-relaxed">
                   Me he desempeñado en una amplia variedad de proyectos como desarrollador web, desde trabajos independientes hasta colaboraciones con empresas internacionales de consultoría. Mi enfoque se basa en el aprendizaje autodidacta y la búsqueda constante de nuevos desafíos.
                 </p>
@@ -71,9 +71,9 @@ export default function Home() {
                 </p>
               </div>
               <div className="md:col-span-4 flex justify-center">
-                <div className="w-56 h-56 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-900 p-1 rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
-                  <div className="w-full h-full bg-[#0d1117] rounded-xl flex items-center justify-center text-gray-500 overflow-hidden relative">
-                    <div className="absolute inset-0 bg-blue-500/10 flex items-center justify-center">Avatar</div>
+                <div className="w-56 h-56 rounded-2xl bg-gradient-to-tr from-hzgold-600 to-hzgold-900 p-1 rotate-3 hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                  <div className="w-full h-full bg-[#050505] rounded-xl flex items-center justify-center text-gray-500 overflow-hidden relative">
+                    <div className="absolute inset-0 bg-hzgold-500/10 flex items-center justify-center">Avatar</div>
                   </div>
                 </div>
               </div>
@@ -86,7 +86,7 @@ export default function Home() {
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="space-y-8">
               {/* Stefanini */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#161b22]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-blue-500/50 transition-colors">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
                  <div className="md:col-span-3">
                    <div className="h-32 bg-gray-900 rounded-xl flex items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">Stefanini Logo</div>
                  </div>
@@ -100,7 +100,7 @@ export default function Home() {
               </div>
 
               {/* Inetum */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#161b22]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-blue-500/50 transition-colors">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
                  <div className="md:col-span-3">
                    <div className="h-32 bg-gray-900 rounded-xl flex items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">Inetum Logo</div>
                  </div>
@@ -118,7 +118,7 @@ export default function Home() {
       </section>
 
       {/* 3. SKILL CARDS (.habilities-container in old HTML) */}
-      <section className="py-24 bg-[#11151d] border-y border-gray-800/50">
+      <section className="py-24 bg-[#080808] border-y border-gray-800/50">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Habilidades Técnicas</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
@@ -129,13 +129,13 @@ export default function Home() {
               { name: 'Golang', pct: 'w-[75%]', icon: <Code2 className="w-8 h-8"/> },
               { name: 'Flask',  pct: 'w-[80%]', icon: <Server className="w-8 h-8"/> },
             ].map((skill, i) => (
-              <div key={i} className="bg-[#161b22] border border-gray-800 rounded-xl p-6 text-center hover:-translate-y-2 hover:border-blue-500/50 transition-all duration-300 shadow-xl group">
-                <div className="w-16 h-16 mx-auto bg-gray-900 rounded-full flex items-center justify-center text-gray-400 group-hover:text-blue-400 transition-colors mb-4">
+              <div key={i} className="bg-[#111111] border border-gray-800 rounded-xl p-6 text-center hover:-translate-y-2 hover:border-hzgold-500/50 transition-all duration-300 shadow-xl group">
+                <div className="w-16 h-16 mx-auto bg-gray-900 rounded-full flex items-center justify-center text-gray-400 group-hover:text-hzgold-400 transition-colors mb-4">
                   {skill.icon}
                 </div>
                 <h3 className="font-bold text-lg mb-4">{skill.name}</h3>
                 <div className="w-full bg-gray-900 rounded-full h-1.5 overflow-hidden">
-                  <div className={`bg-blue-500 h-1.5 rounded-full ${skill.pct}`}></div>
+                  <div className={`bg-hzgold-500 h-1.5 rounded-full ${skill.pct}`}></div>
                 </div>
               </div>
             ))}
@@ -146,7 +146,7 @@ export default function Home() {
       {/* 4. SERVICES SWIPER (.services-container in old HTML) */}
       <section className="py-24 max-w-6xl mx-auto px-4">
         <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Servicios</h2>
-        <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative bg-[#10141e]">
+        <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative bg-[#0a0a0a]">
            <Swiper
             modules={[Pagination, Navigation, Autoplay]}
             pagination={{ clickable: true }}
@@ -157,7 +157,7 @@ export default function Home() {
           >
             <SwiperSlide>
               <div className="flex flex-col items-center justify-center h-full p-12 text-center">
-                <h3 className="text-3xl md:text-4xl font-bold mb-6 text-blue-400">Desarrollo de Aplicaciones Web</h3>
+                <h3 className="text-3xl md:text-4xl font-bold mb-6 text-hzgold-400">Desarrollo de Aplicaciones Web</h3>
                 <p className="text-gray-300 text-lg md:text-xl max-w-3xl leading-relaxed">
                   Especializado en el uso de Go y Python con frameworks como Django y FastApi. Enfoque principal radica en el desarrollo backend, integrando servicios de terceros de manera ultra optimizada y segura.
                 </p>
@@ -165,7 +165,7 @@ export default function Home() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="flex flex-col items-center justify-center h-full p-12 text-center">
-                <h3 className="text-3xl md:text-4xl font-bold mb-6 text-indigo-400">Consultoría en Soluciones Web</h3>
+                <h3 className="text-3xl md:text-4xl font-bold mb-6 text-hzgold-300">Consultoría en Soluciones Web</h3>
                 <p className="text-gray-300 text-lg md:text-xl max-w-3xl leading-relaxed">
                   Experiencia en la implementación de sistemas basados en la nube, diseñando estructuras eficientes para proyectos web complejos. Aseguramos eficiencia, mantenibilidad y seguridad corporativa.
                 </p>
@@ -173,7 +173,7 @@ export default function Home() {
             </SwiperSlide>
             <SwiperSlide>
               <div className="flex flex-col items-center justify-center h-full p-12 text-center">
-                <h3 className="text-3xl md:text-4xl font-bold mb-6 text-purple-400">Despliegue Serverless & Cloud</h3>
+                <h3 className="text-3xl md:text-4xl font-bold mb-6 text-hzgold-400">Despliegue Serverless & Cloud</h3>
                 <p className="text-gray-300 text-lg md:text-xl max-w-3xl leading-relaxed">
                   Implementación de aplicaciones nativas en la nube en AWS. Integración con Terraform/SAM para optimizar el rendimiento y escalar de cero a millones de peticiones.
                 </p>
@@ -184,7 +184,7 @@ export default function Home() {
       </section>
 
       {/* 5. RECOMMENDATIONS (.recomendations in old HTML) */}
-      <section className="py-24 bg-[#161b22] border-y border-gray-800/50">
+      <section className="py-24 bg-[#111111] border-y border-gray-800/50">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Recomendaciones</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -205,12 +205,12 @@ export default function Home() {
                 title: "Líder de Proyecto - Kraken"
               }
             ].map((rec, i) => (
-              <div key={i} className="bg-[#0d1117] border border-gray-800 p-8 rounded-2xl relative shadow-lg">
+              <div key={i} className="bg-[#050505] border border-gray-800 p-8 rounded-2xl relative shadow-lg">
                 <Quote className="absolute top-6 right-6 w-12 h-12 text-gray-800" />
                 <p className="text-gray-300 italic mb-8 relative z-10 text-lg leading-relaxed">"{rec.text}"</p>
                 <div>
                   <h4 className="font-bold text-white text-lg">{rec.name}</h4>
-                  <span className="text-blue-400 text-sm">{rec.title}</span>
+                  <span className="text-hzgold-400 text-sm">{rec.title}</span>
                 </div>
               </div>
             ))}
@@ -219,14 +219,14 @@ export default function Home() {
       </section>
 
       {/* 6. CALL TO ACTION (Cotizaciones) */}
-      <section className="relative overflow-hidden w-full py-24 text-center bg-gradient-to-tr from-blue-900 to-[#10141e] border-t border-blue-800/30">
+      <section className="relative overflow-hidden w-full py-24 text-center bg-gradient-to-tr from-hzgold-900 to-[#10141e] border-t border-hzgold-900/30">
         <div className="relative z-10">
           <h2 className="text-3xl md:text-6xl font-bold mb-6 text-white text-shadow-sm">¿Listo para llevar tu idea a la nube?</h2>
           <p className="text-lg md:text-2xl mb-12 max-w-2xl mx-auto text-blue-200">
             Solicita una cotización hoy y transformemos tu proyecto en una realidad serverless infinitamente escalable.
           </p>
           <Link href="/cotizacion">
-            <span className="inline-flex items-center bg-white text-blue-900 px-10 py-5 rounded-full font-bold text-lg shadow-xl shadow-blue-500/20 hover:scale-105 hover:bg-gray-50 transition-all cursor-pointer">
+            <span className="inline-flex items-center bg-white text-hzgold-900 px-10 py-5 rounded-full font-bold text-lg shadow-xl shadow-hzgold-500/20 hover:scale-105 hover:bg-gray-50 transition-all cursor-pointer">
               Solicitar Cotización <CheckCircle2 className="ml-2 w-6 h-6" />
             </span>
           </Link>
