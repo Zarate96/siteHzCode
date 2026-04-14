@@ -40,7 +40,6 @@ jobs:
   deploy-frontend:
     name: Deploy Frontend React
     runs-on: ubuntu-latest
-    needs: deploy-backend
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3

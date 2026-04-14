@@ -40,7 +40,7 @@ export default function BlogPage() {
                   <span className="text-xs text-blue-400 mb-2 block">{new Date(blog.fecha || Date.now()).toLocaleDateString()}</span>
                   <h2 className="text-xl font-bold mb-3 line-clamp-2">{blog.titulo}</h2>
                   <p className="text-gray-400 mb-4 line-clamp-3 text-sm">{blog.resumen}</p>
-                  <Link href={`/blog/${blog.slug}`} className="text-blue-500 hover:text-blue-400 font-medium text-sm">
+                  <Link href={`/blog/article?slug=${blog.slug}`} className="text-hzgold-500 hover:text-hzgold-400 font-medium text-sm">
                     Leer más &rarr;
                   </Link>
                 </div>
