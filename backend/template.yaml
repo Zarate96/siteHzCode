@@ -68,6 +68,18 @@ Resources:
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
 
+  HzCodeAdminTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: hzcode-admin
+      AttributeDefinitions:
+        - AttributeName: username
+          AttributeType: S
+      KeySchema:
+        - AttributeName: username
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
   # ----------------------------------------------------------------------
   # LAMBDA FUNCTIONS
   # ----------------------------------------------------------------------
@@ -81,7 +93,8 @@ Resources:
             TableName: !Ref HzCodeBlogTable
       Environment:
         Variables:
-          ADMIN_SECRET: "admin123" # In production, set via AWS SecretsManager
+          ADMIN_SECRET: "admin123" # Deprecated, keeping for backwards compat if needed.
+          JWT_SECRET: "my-super-secret-jwt-key" # In production, set via AWS SecretsManager
       Events:
         GetBlogList:
           Type: Api
@@ -119,6 +132,25 @@ Resources:
           Type: Api
           Properties:
             Path: /api/contact
+            Method: post
+
+  AuthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/auth/
+      Handler: app.lambda_handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref HzCodeAdminTable
+      Environment:
+        Variables:
+          JWT_SECRET: "my-super-secret-jwt-key" # Keep this identical to BlogFunction
+          TABLE_NAME: "hzcode-admin"
+      Events:
+        Login:
+          Type: Api
+          Properties:
+            Path: /api/auth/login
             Method: post
 
 Outputs:

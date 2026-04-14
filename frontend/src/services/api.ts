@@ -3,6 +3,22 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 export const api = {
+  // --- AUTH ---
+  async login(username: string, password: string): Promise<string> {
+    const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Login failed');
+    }
+    return data.token; // Returns the generated JWT
+  },
+
   // --- BLOG ---
   async getBlogs() {
     try {

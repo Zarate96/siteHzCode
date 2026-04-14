@@ -1,6 +1,7 @@
 import json
 import boto3
 import os
+import jwt
 from botocore.exceptions import ClientError
 
 dynamodb = boto3.resource('dynamodb')
@@ -54,9 +55,19 @@ def lambda_handler(event, context):
             # Admin create/edit blog post
             headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
             auth_header = headers.get('authorization', '')
-            admin_secret = os.environ.get('ADMIN_SECRET', 'admin123')
+            jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
             
-            if auth_header != f"Bearer {admin_secret}":
+            if not auth_header.startswith("Bearer "):
+                return {
+                    'statusCode': 401,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'message': 'Missing or invalid token format'})
+                }
+                
+            token = auth_header.split(" ")[1]
+            try:
+                jwt.decode(token, jwt_secret, algorithms=['HS256'])
+            except Exception:
                 return {
                     'statusCode': 401,
                     'headers': {'Access-Control-Allow-Origin': '*'},
@@ -83,9 +94,19 @@ def lambda_handler(event, context):
             # Admin delete blog post
             headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
             auth_header = headers.get('authorization', '')
-            admin_secret = os.environ.get('ADMIN_SECRET', 'admin123')
+            jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
             
-            if auth_header != f"Bearer {admin_secret}":
+            if not auth_header.startswith("Bearer "):
+                return {
+                    'statusCode': 401,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'message': 'Missing or invalid token format'})
+                }
+                
+            token = auth_header.split(" ")[1]
+            try:
+                jwt.decode(token, jwt_secret, algorithms=['HS256'])
+            except Exception:
                 return {
                     'statusCode': 401,
                     'headers': {'Access-Control-Allow-Origin': '*'},

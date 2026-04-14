@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HzCode | Desarrollo Web Serverless & Consultoría",
-  description: "Especializado en el desarrollo de aplicaciones web ultra optimizadas, enfocadas en arquitectura serverless con AWS, Python, y Next.js.",
+  title: "HzCode | Desarrollo deSoftware & Consultoría",
+  description: "Especializado en el desarrollo de aplicaciones moviles ultra optimizadas, enfocadas en arquitectura serverless con AWS, Python, y Next.js.",
 };
 
 import Footer from "@/components/Footer";
