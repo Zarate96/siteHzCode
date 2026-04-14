@@ -26,9 +26,14 @@ export default function Home() {
         </div>
         
         <div className="relative z-10 text-center px-4">
-          <h1 className="text-4xl md:text-7xl font-bold mb-6 font-[Manrope] bg-clip-text text-transparent bg-gradient-to-r from-hzgold-400 to-hzgold-300">
-            HzCode
-          </h1>
+          <div className="flex justify-center mb-6">
+            {/* The src="/logo.png" automatically looks in the frontend/public directory */}
+            <img 
+              src="/logo.png" 
+              alt="HzCode" 
+              className="h-20 md:h-28 object-contain drop-shadow-[0_0_15px_rgba(184,150,107,0.3)] hover:scale-105 transition-transform duration-500" 
+            />
+          </div>
           <span className="text-xl md:text-3xl font-[Lora] italic text-gray-300 tracking-wide block mb-8">
             Desarrollo Web Serverless
           </span>
