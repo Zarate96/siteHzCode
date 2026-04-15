@@ -48,9 +48,23 @@ export default function CotizacionPage() {
           Cuéntanos sobre tu idea y nos pondremos en contacto contigo lo antes posible para proyectarlo en la nube.
         </p>
 
+        {/* Full success screen — replaces the form */}
         {status === 'success' && (
-          <div className="bg-green-600/20 border border-green-500 text-green-400 p-4 rounded mb-6 text-center">
-            ¡Tu solicitud de cotización ha sido enviada con éxito! Te contactaremos a la brevedad.
+          <div className="text-center py-12 space-y-6">
+            <div className="w-20 h-20 mx-auto bg-green-600/20 rounded-full flex items-center justify-center border-2 border-green-500">
+              <svg className="w-10 h-10 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <h2 className="text-2xl font-bold text-green-400">¡Solicitud Enviada!</h2>
+            <p className="text-gray-300 text-lg max-w-md mx-auto">
+              Hemos recibido tu cotización exitosamente. Nos pondremos en contacto contigo a la brevedad posible.
+            </p>
+            <p className="text-gray-500 text-sm">Revisa tu correo electrónico para una confirmación.</p>
+            <button
+              onClick={() => setStatus('idle')}
+              className="mt-4 px-6 py-2 border border-gray-600 text-gray-300 rounded hover:bg-gray-800 transition-colors"
+            >
+              Enviar otra cotización
+            </button>
           </div>
         )}
 
@@ -60,6 +74,7 @@ export default function CotizacionPage() {
           </div>
         )}
 
+        {status !== 'success' && (
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -102,7 +117,9 @@ export default function CotizacionPage() {
             {status === 'loading' ? 'Enviando...' : 'Enviar Cotización'}
           </button>
         </form>
+        )}
       </div>
     </main>
   );
 }
+

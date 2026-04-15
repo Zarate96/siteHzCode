@@ -21,8 +21,12 @@ SMTP_PASS = os.environ.get('SMTP_PASS', '')
 
 def send_email(to_email, subject, html_body):
     """Send an email via IONOS SMTP. Fails silently so form submission is never blocked."""
+    import sys
+    print(f"[EMAIL] Attempting to send email to: {to_email}", flush=True)
+    print(f"[EMAIL] SMTP_USER={SMTP_USER}, SMTP_PASS={'SET(' + str(len(SMTP_PASS)) + ' chars)' if SMTP_PASS else 'EMPTY'}", flush=True)
+    
     if not SMTP_PASS:
-        print("SMTP_PASS not configured, skipping email")
+        print("[EMAIL] SMTP_PASS not configured, skipping email", flush=True)
         return False
     try:
         msg = MIMEMultipart('alternative')
@@ -31,13 +35,22 @@ def send_email(to_email, subject, html_body):
         msg['Subject'] = subject
         msg.attach(MIMEText(html_body, 'html', 'utf-8'))
         
+        print(f"[EMAIL] Connecting to {SMTP_HOST}:{SMTP_PORT}...", flush=True)
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as server:
+            server.set_debuglevel(1)  # This logs full SMTP conversation
+            print("[EMAIL] Connected. Starting TLS...", flush=True)
             server.starttls()
+            print("[EMAIL] TLS established. Logging in...", flush=True)
             server.login(SMTP_USER, SMTP_PASS)
-            server.sendmail(SMTP_USER, to_email, msg.as_string())
+            print("[EMAIL] Logged in. Sending...", flush=True)
+            result = server.sendmail(SMTP_USER, to_email, msg.as_string())
+            print(f"[EMAIL] Send result: {result}", flush=True)
+        print(f"[EMAIL] SUCCESS - Email sent to {to_email}", flush=True)
         return True
     except Exception as e:
-        print(f"Email send failed: {e}")
+        import traceback
+        print(f"[EMAIL] FAILED: {type(e).__name__}: {e}", flush=True)
+        print(f"[EMAIL] Traceback: {traceback.format_exc()}", flush=True)
         return False
 
 def lambda_handler(event, context):
