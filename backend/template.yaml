@@ -4,6 +4,13 @@ Description: >
   hzcode.mx backend
   SAM Template for the serverless migration of the django application.
 
+Parameters:
+  SmtpPassword:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: IONOS SMTP password for sending emails
+
 Globals:
   Function:
     Timeout: 3
@@ -173,14 +180,15 @@ Resources:
     Properties:
       CodeUri: lambdas/contact/
       Handler: app.lambda_handler
+      Timeout: 15
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref HzCodeMessagesTable
-        - SESCrudPolicy:
-            IdentityName: "hzcode.mx"
       Environment:
         Variables:
-          JWT_SECRET: "my-super-secret-jwt-key" # Keep identical to BlogFunction for shared Admin auth
+          JWT_SECRET: "my-super-secret-jwt-key"
+          SMTP_USER: "hugo.zarate@hzcode.mx"
+          SMTP_PASS: !Ref SmtpPassword
       Events:
         PostContactMsg:
           Type: Api

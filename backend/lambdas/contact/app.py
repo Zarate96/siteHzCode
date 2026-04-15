@@ -4,11 +4,41 @@ import os
 import uuid
 import datetime
 import jwt
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from botocore.exceptions import ClientError
 
 dynamodb = boto3.resource('dynamodb')
 table_name = os.environ.get('TABLE_NAME', 'hzcode-messages')
 table = dynamodb.Table(table_name)
+
+# SMTP Configuration (IONOS)
+SMTP_HOST = 'smtp.ionos.com'
+SMTP_PORT = 587
+SMTP_USER = os.environ.get('SMTP_USER', 'hugo.zarate@hzcode.mx')
+SMTP_PASS = os.environ.get('SMTP_PASS', '')
+
+def send_email(to_email, subject, html_body):
+    """Send an email via IONOS SMTP. Fails silently so form submission is never blocked."""
+    if not SMTP_PASS:
+        print("SMTP_PASS not configured, skipping email")
+        return False
+    try:
+        msg = MIMEMultipart('alternative')
+        msg['From'] = f'HzCode <{SMTP_USER}>'
+        msg['To'] = to_email
+        msg['Subject'] = subject
+        msg.attach(MIMEText(html_body, 'html', 'utf-8'))
+        
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as server:
+            server.starttls()
+            server.login(SMTP_USER, SMTP_PASS)
+            server.sendmail(SMTP_USER, to_email, msg.as_string())
+        return True
+    except Exception as e:
+        print(f"Email send failed: {e}")
+        return False
 
 def lambda_handler(event, context):
     path = event.get('path', '')
@@ -28,21 +58,72 @@ def lambda_handler(event, context):
             
             item_id = str(uuid.uuid4())
             timestamp = datetime.datetime.utcnow().isoformat()
+            customer_name = body.get('name')
+            customer_email = body.get('email')
+            subject = body.get('subject', 'Sin asunto')
+            phone = body.get('phone', '')
+            message = body.get('message')
             
             item = {
                 'id': item_id,
                 'fecha': timestamp,
-                'nombre': body.get('name'),
-                'email': body.get('email'),
-                'asunto': body.get('subject', 'Sin asunto'),
-                'telefono': body.get('phone', ''),
-                'mensaje': body.get('message'),
+                'nombre': customer_name,
+                'email': customer_email,
+                'asunto': subject,
+                'telefono': phone,
+                'mensaje': message,
                 'is_answered': False
             }
             
             table.put_item(Item=item)
             
-            # Note: We can add boto3 SES code here to send an email notification to hzcode
+            # ── Email 1: Auto-reply to customer ──
+            customer_html = f"""
+            <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0d1117; color: #e6edf3; border-radius: 12px; overflow: hidden;">
+                <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 32px; text-align: center;">
+                    <h1 style="color: #b8966b; margin: 0; font-size: 28px;">HzCode</h1>
+                    <p style="color: #8b949e; margin-top: 8px;">Soluciones Web &amp; Cloud</p>
+                </div>
+                <div style="padding: 32px;">
+                    <h2 style="color: #e6edf3; margin-top: 0;">¡Hola {customer_name}!</h2>
+                    <p style="color: #8b949e; font-size: 16px; line-height: 1.6;">
+                        Gracias por tu interés en nuestros servicios. Hemos recibido tu mensaje
+                        y pronto estaremos en contacto contigo.
+                    </p>
+                    <div style="background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 24px 0;">
+                        <p style="color: #8b949e; margin: 0 0 8px 0; font-size: 13px;">Tu mensaje:</p>
+                        <p style="color: #e6edf3; margin: 0; font-style: italic;">"{message}"</p>
+                    </div>
+                    <p style="color: #8b949e; font-size: 14px;">
+                        Si tienes alguna pregunta adicional, no dudes en responder a este correo.
+                    </p>
+                </div>
+                <div style="background: #161b22; padding: 20px; text-align: center; border-top: 1px solid #30363d;">
+                    <p style="color: #484f58; font-size: 12px; margin: 0;">
+                        © {datetime.datetime.utcnow().year} HzCode — hzcode.mx
+                    </p>
+                </div>
+            </div>
+            """
+            send_email(customer_email, 'HzCode — Hemos recibido tu mensaje', customer_html)
+            
+            # ── Email 2: Notification to admin ──
+            admin_html = f"""
+            <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <h2 style="color: #b8966b;">📩 Nueva Cotización Recibida</h2>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr><td style="padding: 8px; font-weight: bold; color: #555;">Nombre:</td><td style="padding: 8px;">{customer_name}</td></tr>
+                    <tr><td style="padding: 8px; font-weight: bold; color: #555;">Email:</td><td style="padding: 8px;">{customer_email}</td></tr>
+                    <tr><td style="padding: 8px; font-weight: bold; color: #555;">Teléfono:</td><td style="padding: 8px;">{phone or 'No proporcionado'}</td></tr>
+                    <tr><td style="padding: 8px; font-weight: bold; color: #555;">Asunto:</td><td style="padding: 8px;">{subject}</td></tr>
+                </table>
+                <div style="background: #f5f5f5; padding: 16px; border-radius: 8px; margin-top: 16px;">
+                    <p style="color: #333; margin: 0; white-space: pre-wrap;">{message}</p>
+                </div>
+                <p style="color: #999; font-size: 12px; margin-top: 20px;">Gestiona este mensaje desde tu panel de administración en hzcode.mx/hzadmin</p>
+            </div>
+            """
+            send_email(SMTP_USER, f'[HzCode] Nueva cotización: {subject}', admin_html)
             
             return {
                 'statusCode': 201,
