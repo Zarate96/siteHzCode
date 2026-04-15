@@ -68,7 +68,7 @@ export const api = {
   },
 
   // --- CONTACTO Y COTIZACIONES ---
-  async sendContactMessage(formData: { name: string, email: string, subject?: string, phone?: string, message: string }) {
+  async sendContactMessage(formData: { name: string, email: string, subject?: string, phone?: string, message: string, recaptcha_token?: string }) {
     try {
       const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',

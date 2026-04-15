@@ -10,6 +10,11 @@ Parameters:
     Default: ""
     NoEcho: true
     Description: IONOS SMTP password for sending emails
+  RecaptchaSecretKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Google reCAPTCHA v3 secret key
 
 Globals:
   Function:
@@ -189,6 +194,7 @@ Resources:
           JWT_SECRET: "my-super-secret-jwt-key"
           SMTP_USER: "hugo.zarate@hzcode.mx"
           SMTP_PASS: !Ref SmtpPassword
+          RECAPTCHA_SECRET_KEY: !Ref RecaptchaSecretKey
       Events:
         PostContactMsg:
           Type: Api

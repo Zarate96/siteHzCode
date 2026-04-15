@@ -1,7 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { api } from '@/services/api';
+import Script from 'next/script';
+
+const RECAPTCHA_SITE_KEY = '6LfGGLgsAAAAAGM2Gi__RUzKv3OyQ4KsDdnmw6l6';
+
+declare global {
+  interface Window {
+    grecaptcha: any;
+  }
+}
 
 export default function CotizacionPage() {
   const [formData, setFormData] = useState({
@@ -24,13 +33,19 @@ export default function CotizacionPage() {
     setStatus('loading');
     
     try {
-      // Usaremos el mismo endpoint de contacto pero enriquecido para cotizaciones
+      // Get reCAPTCHA v3 token
+      let recaptchaToken = '';
+      if (window.grecaptcha) {
+        recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'submit_cotizacion' });
+      }
+
       await api.sendContactMessage({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         subject: `Nueva Cotización: ${formData.project_type} - Presupuesto: ${formData.budget}`,
-        message: formData.message
+        message: formData.message,
+        recaptcha_token: recaptchaToken
       });
       setStatus('success');
       setFormData({ name: '', email: '', phone: '', project_type: 'web_app', budget: '', message: '' });
@@ -41,6 +56,8 @@ export default function CotizacionPage() {
   };
 
   return (
+    <>
+    <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="lazyOnload" />
     <main className="min-h-screen bg-[#0d1117] text-white py-20 px-4">
       <div className="max-w-3xl mx-auto bg-[#161b22] border border-gray-700 p-8 rounded-lg shadow-xl">
         <h1 className="text-4xl font-bold mb-6 font-[Manrope] text-center text-blue-400">Solicitar Cotización</h1>
@@ -120,6 +137,6 @@ export default function CotizacionPage() {
         )}
       </div>
     </main>
+    </>
   );
 }
-

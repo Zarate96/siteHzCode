@@ -5,6 +5,8 @@ import uuid
 import datetime
 import jwt
 import smtplib
+import urllib.request
+import urllib.parse
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from botocore.exceptions import ClientError
@@ -67,6 +69,32 @@ def lambda_handler(event, context):
                     'statusCode': 400,
                     'headers': {'Access-Control-Allow-Origin': '*'},
                     'body': json.dumps({'message': 'Missing required fields'})
+                }
+            
+            # reCAPTCHA v3 validation
+            recaptcha_token = body.get('recaptcha_token')
+            recaptcha_secret = os.environ.get('RECAPTCHA_SECRET_KEY')
+            if recaptcha_secret and recaptcha_token:
+                try:
+                    verify_url = 'https://www.google.com/recaptcha/api/siteverify'
+                    data = urllib.parse.urlencode({'secret': recaptcha_secret, 'response': recaptcha_token}).encode('utf-8')
+                    req = urllib.request.Request(verify_url, data=data)
+                    with urllib.request.urlopen(req, timeout=5) as response:
+                        result = json.loads(response.read().decode())
+                        if not result.get('success') or result.get('score', 0) < 0.5:
+                            print(f"reCAPTCHA failed: {result}")
+                            return {
+                                'statusCode': 400,
+                                'headers': {'Access-Control-Allow-Origin': '*'},
+                                'body': json.dumps({'message': 'reCAPTCHA verification failed'})
+                            }
+                except Exception as e:
+                    print(f"reCAPTCHA verification error: {e}")
+            elif recaptcha_secret and not recaptcha_token:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'message': 'Missing reCAPTCHA token'})
                 }
             
             item_id = str(uuid.uuid4())
