@@ -13,15 +13,14 @@ export default function Footer() {
       <div className="absolute -top-24 left-1/2 transform -translate-x-1/2 w-[400px] h-32 bg-hzgold-700/10 blur-[80px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-6xl mx-auto px-4 relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
-        
+
         {/* Logo / Brand Section */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <Link href="/">
             <img src="/logo.png" alt="HzCode Logo" className="h-10 md:h-14 mb-4 object-contain drop-shadow-[0_0_8px_rgba(184,150,107,0.3)] hover:scale-105 transition-transform duration-300" />
           </Link>
           <p className="text-gray-400 max-w-sm text-sm leading-relaxed">
-            Especializado en el desarrollo de aplicaciones web serverless y consultoría cloud. Llevando ideas a la nube con elegancia y rendimiento.
-          </p>
+            Ingeniería de software End-to-End: Clean Architecture, Cloud & IA. Transformando la operación empresarial mediante tecnología robusta y escalable.          </p>
         </div>
 
         {/* Social Links */}
