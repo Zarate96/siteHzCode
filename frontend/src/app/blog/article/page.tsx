@@ -54,9 +54,13 @@ function ArticleContent() {
         <header className="mb-10">
           <span className="text-hzgold-400 block mb-2">{new Date(blog.fecha || Date.now()).toLocaleDateString()}</span>
           <h1 className="text-4xl md:text-5xl font-bold font-[Manrope] mb-6">{blog.titulo}</h1>
-          <div className="h-64 md:h-96 w-full bg-[#111111] rounded-lg flex items-center justify-center text-gray-500 border border-gray-800">
-            Image Placeholder
-          </div>
+          {blog.imagen_url ? (
+            <img src={blog.imagen_url} alt={blog.titulo} className="h-64 md:h-96 w-full object-cover rounded-lg border border-gray-800" />
+          ) : (
+            <div className="h-64 md:h-96 w-full bg-[#111111] rounded-lg flex items-center justify-center text-gray-500 border border-gray-800">
+              Sin imagen
+            </div>
+          )}
         </header>
         <section className="prose prose-invert prose-lg prose-yellow max-w-none font-sans leading-relaxed text-gray-300 text-justify">
           {(blog.contenido || '').split('\n').map((paragraph: string, index: number) => (

@@ -33,8 +33,11 @@ export default function BlogPage() {
             {blogs.map((blog, idx) => (
               <article key={idx} className="bg-[#111111] border border-gray-800 rounded-lg overflow-hidden hover:border-hzgold-500 hover:-translate-y-1 transition-all duration-300">
                 <div className="h-48 bg-[#1a1a1a] w-full overflow-hidden flex items-center justify-center text-gray-600">
-                  {/* Imagen dinámica en el futuro cuando el S3 se configure */}
-                  <span>Image Placeholder</span>
+                  {blog.imagen_url ? (
+                    <img src={blog.imagen_url} alt={blog.titulo} className="w-full h-full object-cover" />
+                  ) : (
+                    <span>Sin imagen</span>
+                  )}
                 </div>
                 <div className="p-6">
                   <span className="text-xs text-hzgold-400 mb-2 block">{new Date(blog.fecha || Date.now()).toLocaleDateString()}</span>
