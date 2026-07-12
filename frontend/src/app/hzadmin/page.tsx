@@ -214,6 +214,17 @@ export default function AdminPage() {
     } catch { alert('Error updating status'); }
   };
 
+  const [messageToDelete, setMessageToDelete] = useState<string | null>(null);
+
+  const handleDeleteMessage = async () => {
+    if (!messageToDelete) return;
+    try {
+        await api.deleteMessage(messageToDelete, jwtToken);
+        loadMessages();
+        setMessageToDelete(null);
+    } catch { alert('Error deleting message'); }
+  };
+
   // ── Portfolio ───────────────────────────────
   const loadProjects = async () => setProjects((await api.getProjects()) || []);
 
@@ -422,11 +433,28 @@ export default function AdminPage() {
                       className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm transition-all ${msg.is_answered ? 'bg-gray-800 text-gray-400 hover:bg-gray-700' : 'bg-green-600/20 text-green-500 border border-green-500/30 hover:bg-green-600 hover:text-white'}`}>
                       {msg.is_answered ? <><CheckCircle className="w-4 h-4" /> Resuelto</> : <><Circle className="w-4 h-4 text-hzgold-500" /> Pendiente</>}
                     </button>
+                    <button onClick={() => setMessageToDelete(msg.id)} className="text-red-500 hover:text-red-400 text-sm font-bold flex items-center gap-1">
+                      <Trash2 className="w-4 h-4" /> Eliminar
+                    </button>
                   </div>
                 </div>
               ))}
               {messages.length === 0 && <div className="text-gray-500 text-center py-12 border border-dashed border-gray-800 rounded-xl">Aún no hay mensajes en tu bandeja.</div>}
             </div>
+
+            {/* Confirmation Modal */}
+            {messageToDelete && (
+              <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+                <div className="bg-[#161b22] border border-gray-800 p-8 rounded-xl max-w-sm w-full">
+                  <h3 className="text-lg font-bold text-white mb-4">¿Eliminar cotización?</h3>
+                  <p className="text-gray-400 mb-6">Esta acción no se puede deshacer.</p>
+                  <div className="flex gap-4">
+                    <button onClick={() => setMessageToDelete(null)} className="flex-1 px-4 py-2 rounded border border-gray-700 text-gray-300 hover:bg-gray-800">Cancelar</button>
+                    <button onClick={handleDeleteMessage} className="flex-1 px-4 py-2 rounded bg-red-600 text-white hover:bg-red-500">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 

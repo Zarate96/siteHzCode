@@ -112,6 +112,17 @@ export const api = {
     if (!response.ok) throw new Error('Authorization failed or server error');
     return await response.json();
   },
+
+  async deleteMessage(id: string, token: string) {
+    const response = await fetch(`${API_BASE_URL}/api/contact/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    if (!response.ok) throw new Error('Failed to delete message');
+    return await response.json();
+  },
   
   // --- PORTFOLIO ---
   async getProjects() {

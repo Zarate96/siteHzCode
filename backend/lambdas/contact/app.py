@@ -214,6 +214,40 @@ def lambda_handler(event, context):
                 'body': json.dumps(items)
             }
             
+        elif path.startswith('/api/contact/') and http_method == 'DELETE':
+            # Admin delete message
+            headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
+            auth_header = headers.get('authorization', '')
+            jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+            
+            if not auth_header.startswith("Bearer "):
+                return {
+                    'statusCode': 401,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'message': 'Missing or invalid token format'})
+                }
+                
+            token = auth_header.split(" ")[1]
+            try:
+                jwt.decode(token, jwt_secret, algorithms=['HS256'])
+            except Exception:
+                return {
+                    'statusCode': 401,
+                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'body': json.dumps({'message': 'Unauthorized'})
+                }
+                
+            msg_id = event['pathParameters'].get('id')
+            table.delete_item(Key={'id': msg_id})
+            return {
+                'statusCode': 200,
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                'body': json.dumps({'message': 'Message deleted successfully'})
+            }
+                
         elif path.startswith('/api/contact/') and http_method == 'PUT':
             # Admin update message status
             headers = {k.lower(): v for k, v in event.get('headers', {}).items()}

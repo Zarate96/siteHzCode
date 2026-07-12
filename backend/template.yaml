@@ -211,6 +211,11 @@ Resources:
           Properties:
             Path: /api/contact/{id}
             Method: put
+        DeleteMessage:
+          Type: Api
+          Properties:
+            Path: /api/contact/{id}
+            Method: delete
 
   AuthFunction:
     Type: AWS::Serverless::Function
