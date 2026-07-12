@@ -60,7 +60,7 @@ export default function Home() {
             onClick={() => setActiveTab('about')}
             className={`px-8 py-4 text-sm md:text-lg font-bold font-[Manrope] uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'about' ? 'text-hzgold-400 border-hzgold-400 bg-hzgold-900/10' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
           >
-            Sobre mí
+            Nosotros
           </button>
           <button
             onClick={() => setActiveTab('experience')}
@@ -192,7 +192,7 @@ export default function Home() {
                   </div>
                   <span className="text-gray-500 font-mono mb-4 block text-sm">stefanini.com</span>
                   <p className="text-gray-300 text-lg leading-relaxed">
-                    Formé parte del equipo Kraken de Walmart, enfocado en la generación automatizada de reportes detallados y herramientas de recopilación/análisis de datos para toma de decisiones estratégicas.
+                    Formamos parte del equipo Kraken de Walmart, enfocado en la generación automatizada de reportes detallados y herramientas de recopilación/análisis de datos para toma de decisiones estratégicas.
                   </p>
                 </div>
               </div>
@@ -214,7 +214,7 @@ export default function Home() {
                   </div>
                   <span className="text-gray-500 font-mono mb-4 block text-sm">inetum.com</span>
                   <p className="text-gray-300 text-lg leading-relaxed">
-                    Encargado del desarrollo de soluciones web y scripts de automatización corporativa para Telefónica utilizando <strong>Django</strong> y técnicas de <strong>Web Scraping</strong>.
+                    Desarrollo de soluciones web y scripts de automatización corporativa para Telefónica utilizando <strong>Django</strong> y técnicas de <strong>Web Scraping</strong>.
                   </p>
                 </div>
               </div>

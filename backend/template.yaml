@@ -224,6 +224,7 @@ Resources:
         Variables:
           JWT_SECRET: "my-super-secret-jwt-key" # Keep this identical to BlogFunction
           TABLE_NAME: "hzcode-admin"
+          RECAPTCHA_SECRET_KEY: !Ref RecaptchaSecretKey
       Events:
         Login:
           Type: Api

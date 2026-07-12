@@ -20,20 +20,20 @@ export default function Footer() {
             <img src="/logo.png" alt="HzCode Logo" className="h-10 md:h-14 mb-4 object-contain drop-shadow-[0_0_8px_rgba(184,150,107,0.3)] hover:scale-105 transition-transform duration-300" />
           </Link>
           <p className="text-gray-400 max-w-sm text-sm leading-relaxed">
-            Ingeniería de software End-to-End: Clean Architecture, Cloud & IA. Transformando la operación empresarial mediante tecnología robusta y escalable.          </p>
+            Transformando la operación empresarial mediante tecnología robusta y escalable.          </p>
         </div>
 
         {/* Social Links */}
         <div className="flex gap-6 items-center">
-          <a href="https://github.com/Zarate96" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-hzgold-400 transition-colors duration-300 p-2 hover:bg-hzgold-900/30 rounded-full">
+          {/* <a href="https://github.com/Zarate96" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-hzgold-400 transition-colors duration-300 p-2 hover:bg-hzgold-900/30 rounded-full">
             <FaGithub className="w-6 h-6" />
-          </a>
-          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-hzgold-400 transition-colors duration-300 p-2 hover:bg-hzgold-900/30 rounded-full">
+          </a> */}
+          <a href="https://www.linkedin.com/in/hugo-zarate-861038229/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-hzgold-400 transition-colors duration-300 p-2 hover:bg-hzgold-900/30 rounded-full">
             <FaLinkedin className="w-6 h-6" />
           </a>
-          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-hzgold-400 transition-colors duration-300 p-2 hover:bg-hzgold-900/30 rounded-full">
+          {/* <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-hzgold-400 transition-colors duration-300 p-2 hover:bg-hzgold-900/30 rounded-full">
             <FaXTwitter className="w-6 h-6" />
-          </a>
+          </a> */}
           <a href="mailto:hola@hzcode.mx" className="text-gray-400 hover:text-hzgold-400 transition-colors duration-300 p-2 hover:bg-hzgold-900/30 rounded-full">
             <Mail className="w-6 h-6" />
           </a>

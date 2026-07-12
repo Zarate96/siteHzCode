@@ -2,7 +2,16 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '@/services/api';
+import Script from 'next/script';
 import { Trash2, PlusCircle, Inbox, FileText, CheckCircle, Circle, FolderOpen, User, Upload, ImageIcon, X } from 'lucide-react';
+
+const RECAPTCHA_SITE_KEY = '6LfGGLgsAAAAAGM2Gi__RUzKv3OyQ4KsDdnmw6l6';
+
+declare global {
+  interface Window {
+    grecaptcha: any;
+  }
+}
 
 // ─────────────────────────────────────────────
 // Reusable Image Uploader Component
@@ -128,7 +137,13 @@ export default function AdminPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const token = await api.login(username, password);
+      // Get reCAPTCHA v3 token
+      let recaptchaToken = '';
+      if (window.grecaptcha) {
+        recaptchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'admin_login' });
+      }
+
+      const token = await api.login(username, password, recaptchaToken);
       setJwtToken(token);
       localStorage.setItem('hz_admin_jwt', token);
       setIsAuthenticated(true);
@@ -243,6 +258,7 @@ export default function AdminPage() {
   if (!isAuthenticated) {
     return (
       <main className="min-h-screen bg-[#0d1117] text-white flex items-center justify-center p-4">
+        <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="lazyOnload" />
         <form onSubmit={handleLogin} className="bg-[#161b22] border border-gray-700 p-8 rounded-xl shadow-2xl max-w-sm w-full">
           <h1 className="text-2xl font-bold mb-6 text-center text-hzgold-400">Panel de Administración</h1>
           <div className="mb-4">

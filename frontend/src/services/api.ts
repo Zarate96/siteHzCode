@@ -4,13 +4,13 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
 export const api = {
   // --- AUTH ---
-  async login(username: string, password: string): Promise<string> {
+  async login(username: string, password: string, recaptchaToken?: string): Promise<string> {
     const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, recaptcha_token: recaptchaToken }),
     });
     const data = await response.json();
     if (!response.ok) {
