@@ -95,6 +95,7 @@ export default function AdminPage() {
 
   // Blog state
   const [blogs, setBlogs] = useState<any[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [summary, setSummary] = useState('');
@@ -170,14 +171,25 @@ export default function AdminPage() {
         titulo: title, slug, resumen: summary, contenido: content,
         imagen_url: blogImage, fecha: new Date().toISOString()
       }, jwtToken);
-      alert('Blog creado exitosamente!');
+      alert(isEditing ? 'Blog actualizado exitosamente!' : 'Blog creado exitosamente!');
       setTitle(''); setSlug(''); setSummary(''); setContent(''); setBlogImage('');
+      setIsEditing(false);
       loadBlogs();
     } catch {
       alert('Error de autenticación o formato inválido. Tu sesión puede haber expirado.');
       handleLogout();
     }
     setLoading(false);
+  };
+
+  const handleEditBlog = (blog: any) => {
+    setIsEditing(true);
+    setTitle(blog.titulo);
+    setSlug(blog.slug);
+    setSummary(blog.resumen);
+    setContent(blog.contenido);
+    setBlogImage(blog.imagen_url || '');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDeleteBlog = async (deleteSlug: string) => {
@@ -318,7 +330,9 @@ export default function AdminPage() {
         {activeTab === 'blogs' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <section className="bg-[#161b22] border border-gray-800 p-8 rounded-xl">
-              <h2 className="text-2xl font-bold mb-6 flex items-center text-blue-400"><PlusCircle className="mr-2" /> Crear Nuevo Blog</h2>
+              <h2 className="text-2xl font-bold mb-6 flex items-center text-blue-400">
+                <PlusCircle className="mr-2" /> {isEditing ? 'Editar Blog' : 'Crear Nuevo Blog'}
+              </h2>
               <form onSubmit={handleCreate} className="space-y-4">
                 <div>
                   <label className="block text-sm mb-1 text-gray-400">Título</label>
@@ -327,8 +341,8 @@ export default function AdminPage() {
                 </div>
                 <div>
                   <label className="block text-sm mb-1 text-gray-400">Slug (URL amigable)</label>
-                  <input required type="text" value={slug} onChange={e => setSlug(e.target.value)}
-                    className="w-full bg-[#0d1117] border border-gray-700 rounded px-4 py-2 focus:border-blue-500" placeholder="mi-primer-blog" />
+                  <input required disabled={isEditing} type="text" value={slug} onChange={e => setSlug(e.target.value)}
+                    className="w-full bg-[#0d1117] border border-gray-700 rounded px-4 py-2 focus:border-blue-500 disabled:opacity-50" placeholder="mi-primer-blog" />
                 </div>
                 <div>
                   <label className="block text-sm mb-1 text-gray-400">Imagen de portada</label>
@@ -340,14 +354,20 @@ export default function AdminPage() {
                     className="w-full bg-[#0d1117] border border-gray-700 rounded px-4 py-2 focus:border-blue-500" />
                 </div>
                 <div>
-                  <label className="block text-sm mb-1 text-gray-400">Contenido (Admite HTML)</label>
+                  <label className="block text-sm mb-1 text-gray-400">Contenido</label>
                   <textarea required rows={8} value={content} onChange={e => setContent(e.target.value)}
                     className="w-full bg-[#0d1117] border border-gray-700 rounded px-4 py-2 focus:border-blue-500 font-mono text-sm" />
                 </div>
                 <button disabled={loading} type="submit"
                   className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded transition-colors disabled:opacity-50">
-                  {loading ? 'Guardando...' : 'Publicar Blog'}
+                  {loading ? 'Guardando...' : (isEditing ? 'Actualizar Blog' : 'Publicar Blog')}
                 </button>
+                {isEditing && (
+                  <button type="button" onClick={() => { setIsEditing(false); setTitle(''); setSlug(''); setSummary(''); setContent(''); setBlogImage(''); }}
+                    className="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded transition-colors">
+                    Cancelar Edición
+                  </button>
+                )}
               </form>
             </section>
             <section className="bg-[#161b22] border border-gray-800 p-8 rounded-xl">
@@ -363,9 +383,14 @@ export default function AdminPage() {
                         <span className="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded">{new Date(blog.fecha).toLocaleDateString()}</span>
                       </div>
                     </div>
-                    <button onClick={() => handleDeleteBlog(blog.slug)} className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded transition-colors flex-shrink-0">
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+                    <div className="flex flex-col gap-2">
+                        <button onClick={() => handleEditBlog(blog)} className="p-2 text-gray-500 hover:text-blue-500 hover:bg-blue-500/10 rounded transition-colors flex-shrink-0">
+                          <ImageIcon className="w-5 h-5" />
+                        </button>
+                        <button onClick={() => handleDeleteBlog(blog.slug)} className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded transition-colors flex-shrink-0">
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                    </div>
                   </div>
                 ))}
                 {blogs.length === 0 && <div className="text-gray-500 text-center py-12">No hay blogs guardados.</div>}

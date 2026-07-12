@@ -58,8 +58,10 @@ function ArticleContent() {
             Image Placeholder
           </div>
         </header>
-        <section className="prose prose-invert prose-yellow max-w-none heading-font">
-          <div dangerouslySetInnerHTML={{ __html: blog.contenido || '<p>Contenido del artículo no disponible.</p>' }} />
+        <section className="prose prose-invert prose-lg prose-yellow max-w-none font-sans leading-relaxed text-gray-300 text-justify">
+          {(blog.contenido || '').split('\n').map((paragraph: string, index: number) => (
+            paragraph.trim() ? <p key={index} className="mb-6">{paragraph}</p> : <br key={index} />
+          ))}
         </section>
       </article>
     </main>
