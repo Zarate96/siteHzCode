@@ -15,6 +15,11 @@ Parameters:
     Default: ""
     NoEcho: true
     Description: Google reCAPTCHA v3 secret key
+  OpenAIApiKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: OpenAI API key for the chatbot lambda
 
 Globals:
   Function:
@@ -308,6 +313,27 @@ Resources:
           Properties:
             Path: /api/upload
             Method: post
+
+  ChatbotFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambdas/chatbot/
+      Handler: app.lambda_handler
+      Timeout: 30
+      Environment:
+        Variables:
+          OPENAI_API_KEY: !Ref OpenAIApiKey
+      Events:
+        ChatbotPost:
+          Type: Api
+          Properties:
+            Path: /api/chatbot
+            Method: post
+        ChatbotOptions:
+          Type: Api
+          Properties:
+            Path: /api/chatbot
+            Method: options
 
 Outputs:
   ApiEndpoint:

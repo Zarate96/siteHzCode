@@ -198,5 +198,21 @@ export const api = {
     });
     if (!response.ok) throw new Error('Failed to upload image to S3');
   },
+
+  // --- CHATBOT ---
+  async sendChatMessage(
+    message: string,
+    history: { role: 'user' | 'assistant'; content: string }[],
+    sessionId: string
+  ): Promise<string> {
+    const response = await fetch(`${API_BASE_URL}/api/chatbot`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, history, sessionId }),
+    });
+    if (!response.ok) throw new Error('Chatbot unavailable');
+    const data = await response.json();
+    return data.response as string;
+  },
 };
 
