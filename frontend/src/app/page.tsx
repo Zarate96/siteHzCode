@@ -66,7 +66,7 @@ export default function Home() {
             onClick={() => setActiveTab('experience')}
             className={`px-8 py-4 text-sm md:text-lg font-bold font-[Manrope] uppercase tracking-wider transition-colors border-b-2 ${activeTab === 'experience' ? 'text-hzgold-400 border-hzgold-400 bg-hzgold-900/10' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
           >
-            Experiencia
+            Clientes
           </button>
         </div>
 
@@ -95,127 +95,117 @@ export default function Home() {
           </div>
         )}
 
-        {/* Tab Content: Experience */}
+        {/* Tab Content: Clients / Case Studies */}
         {activeTab === 'experience' && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="space-y-8">
-
-              {/* GGE - Actual */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
-                <div className="md:col-span-3">
-                  <div className="h-32 bg-gray-900 rounded-xl flex flex-col items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">
-                    <img
-                      src="/GGE_logo.png"
-                      alt="HzCode"
-                    />
-                  </div>
-                </div>
-                <div className="md:col-span-9">
-                  <div className="flex flex-wrap justify-between items-start mb-2">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white">Fullstack Developer | GGE</h2>
-                    <span className="text-hzgold-500 font-mono text-sm">Marzo 2025 - Actualidad</span>
-                  </div>
-                  <span className="text-gray-500 font-mono mb-4 block text-sm">gge.edu.mx</span>
-                  <p className="text-gray-300 text-lg leading-relaxed">
-                    Implementación de soluciones End-to-End para el ecosistema educativo bajo principios de <strong>Clean Architecture</strong> y <strong>DDD</strong>. Enfoque en sistemas escalables mediante la separación de responsabilidades y el uso de <strong>Bounded Contexts</strong>.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-4 text-xs font-mono text-gray-400">
-                    <span>Python</span> • <span>AWS</span> • <span>Docker</span> • <span>Django</span> • <span>Solid</span>
-                  </div>
-                </div>
-              </div>
+            <div className="mb-10">
+              <p className="text-gray-400 text-lg">
+                Hemos colaborado con empresas de distintos sectores para resolver problemas reales de negocio a través de tecnología.
+              </p>
+            </div>
+            <div className="space-y-6">
 
               {/* Santander */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
                 <div className="md:col-span-3">
                   <div className="h-32 bg-gray-900 rounded-xl flex flex-col items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">
-                    <img
-                      src="/santander_logo.png"
-                      alt="HzCode"
-                    />
+                    <img src="/santander_logo.png" alt="Santander" />
                   </div>
                 </div>
                 <div className="md:col-span-9">
-                  <div className="flex flex-wrap justify-between items-start mb-2">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white">Senior Software Developer | Santander</h2>
-                    <span className="text-gray-500 font-mono text-sm">Julio 2024 - Abril 2025</span>
+                  <div className="flex flex-wrap justify-between items-start mb-3">
+                    <div>
+                      <span className="text-xs font-mono text-hzgold-500 uppercase tracking-widest mb-1 block">Sector Financiero</span>
+                      <h2 className="text-xl md:text-2xl font-bold text-white">Automatización de datos críticos — Santander</h2>
+                    </div>
+                    <span className="text-hzgold-500 font-mono text-sm mt-1">Julio 2024 - Actualidad</span>
                   </div>
-                  <span className="text-gray-500 font-mono mb-4 block text-sm">santander.com (USA Remote)</span>
-                  <p className="text-gray-300 text-lg leading-relaxed">
-                    Desarrollo de aplicaciones con <strong>Django</strong> para automatizar y optimizar la entrada de datos críticos de negocio en bases de datos gestionadas por IT. Implementación de flujos de automatización con Python en entornos Azure.
+                  <p className="text-gray-300 text-base leading-relaxed mb-4">
+                    Desarrollo de aplicaciones para <strong>automatizar la entrada y validación de datos críticos de negocio</strong> en un banco de escala global, reduciendo errores operativos y tiempo de procesamiento en entornos Azure con equipos distribuidos en USA.
                   </p>
-                  <div className="flex flex-wrap gap-2 mt-4 text-xs font-mono text-gray-400">
-                    <span>Django</span> • <span>Azure</span> • <span>PostgreSQL</span> • <span>Agile</span>
+                  <div className="flex flex-wrap gap-2 text-xs font-mono">
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Django</span>
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Azure</span>
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">PostgreSQL</span>
                   </div>
                 </div>
               </div>
 
-              {/* Matersys / Gentera */}
+              {/* Gentera / Yastas */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
                 <div className="md:col-span-3">
                   <div className="h-32 bg-gray-900 rounded-xl flex flex-col items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">
-                    <img
-                      src="/yastas_logo.png"
-                      alt="HzCode"
-                    />
+                    <img src="/yastas_logo.png" alt="Yastas / Gentera" />
                   </div>
                 </div>
                 <div className="md:col-span-9">
-                  <div className="flex flex-wrap justify-between items-start mb-2">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white">Desarrollador Python | Matersys</h2>
-                    <span className="text-gray-500 font-mono text-sm">Julio 2023 - Julio 2024</span>
+                  <div className="flex flex-wrap justify-between items-start mb-3">
+                    <div>
+                      <span className="text-xs font-mono text-hzgold-500 uppercase tracking-widest mb-1 block">Fintech / Servicios Financieros</span>
+                      <h2 className="text-xl md:text-2xl font-bold text-white">Microservicios de lógica de negocio — Yastas (Gentera)</h2>
+                    </div>
+                    <span className="text-gray-500 font-mono text-sm mt-1">Julio 2023 - Julio 2024</span>
                   </div>
-                  <span className="text-gray-500 font-mono mb-4 block text-sm">matersys.com</span>
-                  <p className="text-gray-300 text-lg leading-relaxed">
-                    Mantenimiento y despliegue de servicios de lógica de negocio mediante APIs REST en <strong>GCP</strong> para el proyecto Yastas (Gentera). Implementación bajo <strong>Arquitectura Hexagonal</strong> y paradigmas orientados a eventos usando <strong>FastAPI</strong> y <strong>Flask</strong>.
+                  <p className="text-gray-300 text-base leading-relaxed mb-4">
+                    Implementación y mantenimiento de servicios de negocio bajo <strong>Arquitectura Hexagonal</strong> y paradigmas orientados a eventos en GCP, garantizando alta disponibilidad para millones de transacciones en el ecosistema Yastas de Gentera.
                   </p>
-                  <div className="flex flex-wrap gap-2 mt-4 text-xs font-mono text-gray-400">
-                    <span>FastAPI</span> • <span>GCP</span> • <span>Hexagonal Architecture</span> • <span>Event-driven</span>
+                  <div className="flex flex-wrap gap-2 text-xs font-mono">
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">FastAPI</span>
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">GCP</span>
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Event-Driven</span>
                   </div>
                 </div>
               </div>
 
-              {/* Stefanini (Existente, pero actualizado con fechas) */}
+              {/* Walmart / Stefanini */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
                 <div className="md:col-span-3">
                   <div className="h-32 bg-gray-900 rounded-xl flex flex-col items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">
-                    <img
-                      src="/walmart_logo.png"
-                      alt="HzCode"
-                    />
+                    <img src="/walmart_logo.png" alt="Walmart" />
                   </div>
                 </div>
                 <div className="md:col-span-9">
-                  <div className="flex flex-wrap justify-between items-start mb-2">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white">Desarrollador Backend | Stefanini</h2>
-                    <span className="text-gray-500 font-mono text-sm">Julio 2022 - Mayo 2023</span>
+                  <div className="flex flex-wrap justify-between items-start mb-3">
+                    <div>
+                      <span className="text-xs font-mono text-hzgold-500 uppercase tracking-widest mb-1 block">Retail / E-commerce</span>
+                      <h2 className="text-xl md:text-2xl font-bold text-white">Automatización de reportes estratégicos — Walmart</h2>
+                    </div>
+                    <span className="text-gray-500 font-mono text-sm mt-1">Julio 2022 - Mayo 2023</span>
                   </div>
-                  <span className="text-gray-500 font-mono mb-4 block text-sm">stefanini.com</span>
-                  <p className="text-gray-300 text-lg leading-relaxed">
-                    Formamos parte del equipo Kraken de Walmart, enfocado en la generación automatizada de reportes detallados y herramientas de recopilación/análisis de datos para toma de decisiones estratégicas.
+                  <p className="text-gray-300 text-base leading-relaxed mb-4">
+                    Desarrollo de herramientas de <strong>generación automatizada de reportes</strong> y recopilación de datos para toma de decisiones estratégicas en el equipo Kraken de Walmart, impactando directamente la eficiencia operativa a nivel global.
                   </p>
+                  <div className="flex flex-wrap gap-2 text-xs font-mono">
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Python</span>
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Automatización</span>
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Data Analytics</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Inetum (Existente, pero actualizado con fechas) */}
+              {/* Telefónica / Inetum */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-[#111111]/50 p-8 rounded-2xl border border-gray-800/80 backdrop-blur-sm group hover:border-hzgold-500/50 transition-colors">
                 <div className="md:col-span-3">
                   <div className="h-32 bg-gray-900 rounded-xl flex flex-col items-center justify-center text-gray-600 group-hover:scale-105 transition-transform duration-500">
-                    <img
-                      src="/inetum_logo.png"
-                      alt="HzCode"
-                    />
+                    <img src="/inetum_logo.png" alt="Inetum / Telefónica" />
                   </div>
                 </div>
                 <div className="md:col-span-9">
-                  <div className="flex flex-wrap justify-between items-start mb-2">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white">Desarrollador Python | Inetum</h2>
-                    <span className="text-gray-500 font-mono text-sm">Agosto 2021 - Junio 2022</span>
+                  <div className="flex flex-wrap justify-between items-start mb-3">
+                    <div>
+                      <span className="text-xs font-mono text-hzgold-500 uppercase tracking-widest mb-1 block">Telecomunicaciones</span>
+                      <h2 className="text-xl md:text-2xl font-bold text-white">Automatización corporativa — Telefónica</h2>
+                    </div>
+                    <span className="text-gray-500 font-mono text-sm mt-1">Agosto 2021 - Junio 2022</span>
                   </div>
-                  <span className="text-gray-500 font-mono mb-4 block text-sm">inetum.com</span>
-                  <p className="text-gray-300 text-lg leading-relaxed">
-                    Desarrollo de soluciones web y scripts de automatización corporativa para Telefónica utilizando <strong>Django</strong> y técnicas de <strong>Web Scraping</strong>.
+                  <p className="text-gray-300 text-base leading-relaxed mb-4">
+                    Desarrollo de soluciones web y <strong>scripts de automatización corporativa</strong> para uno de los mayores operadores de telecomunicaciones del mundo, agilizando procesos internos de recolección y procesamiento de información.
                   </p>
+                  <div className="flex flex-wrap gap-2 text-xs font-mono">
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Django</span>
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Web Scraping</span>
+                    <span className="px-3 py-1 rounded-full bg-gray-900 border border-gray-700 text-gray-400">Python</span>
+                  </div>
                 </div>
               </div>
 
