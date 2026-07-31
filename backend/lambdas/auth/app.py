@@ -11,7 +11,7 @@ from botocore.exceptions import ClientError
 dynamodb = boto3.resource('dynamodb')
 table_name = os.environ.get('TABLE_NAME', 'hzcode-admin')
 table = dynamodb.Table(table_name)
-jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+jwt_secret = os.environ.get('JWT_SECRET', '')
 
 def verify_password(stored_hash, password):
     try:
@@ -29,7 +29,7 @@ def lambda_handler(event, context):
         return {
             'statusCode': 200,
             'headers': {
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://hzcode.mx',
                 'Access-Control-Allow-Headers': 'Content-Type,Authorization',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
             },
@@ -44,7 +44,7 @@ def lambda_handler(event, context):
         if not username or not password:
             return {
                 'statusCode': 400,
-                'headers': {'Access-Control-Allow-Origin': '*'},
+                'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                 'body': json.dumps({'message': 'Username and password required'})
             }
 
@@ -62,7 +62,7 @@ def lambda_handler(event, context):
                         print(f"reCAPTCHA failed: {result}")
                         return {
                             'statusCode': 400,
-                            'headers': {'Access-Control-Allow-Origin': '*'},
+                            'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                             'body': json.dumps({'message': 'reCAPTCHA verification failed'})
                         }
             except Exception as e:
@@ -70,7 +70,7 @@ def lambda_handler(event, context):
         elif recaptcha_secret and not recaptcha_token:
             return {
                 'statusCode': 400,
-                'headers': {'Access-Control-Allow-Origin': '*'},
+                'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                 'body': json.dumps({'message': 'Missing reCAPTCHA token'})
             }
 
@@ -80,7 +80,7 @@ def lambda_handler(event, context):
         if not item or not verify_password(item['password_hash'], password):
             return {
                 'statusCode': 401,
-                'headers': {'Access-Control-Allow-Origin': '*'},
+                'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                 'body': json.dumps({'message': 'Invalid credentials'})
             }
 
@@ -93,7 +93,7 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'headers': {'Access-Control-Allow-Origin': '*'},
+            'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
             'body': json.dumps({
                 'message': 'Login successful',
                 'token': token
@@ -104,13 +104,13 @@ def lambda_handler(event, context):
         print(f"DynamoDB Error: {e}")
         return {
             'statusCode': 500,
-            'headers': {'Access-Control-Allow-Origin': '*'},
+            'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
             'body': json.dumps({'error': 'Internal server error'})
         }
     except Exception as e:
         print(f"General Error: {e}")
         return {
             'statusCode': 400,
-            'headers': {'Access-Control-Allow-Origin': '*'},
+            'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
             'body': json.dumps({'message': 'Bad request'})
         }

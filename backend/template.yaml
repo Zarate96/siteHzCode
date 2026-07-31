@@ -20,6 +20,11 @@ Parameters:
     Default: ""
     NoEcho: true
     Description: OpenAI API key for the chatbot lambda
+  JwtSecret:
+    Type: String
+    Default: ""
+    NoEcho: true
+    Description: Secret key for signing and verifying JWT tokens
 
 Globals:
   Function:
@@ -31,7 +36,16 @@ Globals:
     Cors:
       AllowMethods: "'GET,POST,OPTIONS,PUT,DELETE'"
       AllowHeaders: "'Content-Type,Authorization'"
-      AllowOrigin: "'*'"
+      AllowOrigin: "'https://hzcode.mx'"
+    MethodSettings:
+      - ResourcePath: "/*"
+        HttpMethod: "*"
+        ThrottlingBurstLimit: 20
+        ThrottlingRateLimit: 10
+      - ResourcePath: "/api/chatbot"
+        HttpMethod: "POST"
+        ThrottlingBurstLimit: 5
+        ThrottlingRateLimit: 3
 
 Resources:
   # ----------------------------------------------------------------------
@@ -162,7 +176,7 @@ Resources:
       Environment:
         Variables:
           ADMIN_SECRET: "admin123" # Deprecated, keeping for backwards compat if needed.
-          JWT_SECRET: "my-super-secret-jwt-key" # In production, set via AWS SecretsManager
+          JWT_SECRET: !Ref JwtSecret
       Events:
         GetBlogList:
           Type: Api
@@ -196,7 +210,7 @@ Resources:
             TableName: !Ref HzCodeMessagesTable
       Environment:
         Variables:
-          JWT_SECRET: "my-super-secret-jwt-key"
+          JWT_SECRET: !Ref JwtSecret
           SMTP_USER: "hugo.zarate@hzcode.mx"
           SMTP_PASS: !Ref SmtpPassword
           RECAPTCHA_SECRET_KEY: !Ref RecaptchaSecretKey
@@ -232,7 +246,7 @@ Resources:
             TableName: !Ref HzCodeAdminTable
       Environment:
         Variables:
-          JWT_SECRET: "my-super-secret-jwt-key" # Keep this identical to BlogFunction
+          JWT_SECRET: !Ref JwtSecret
           TABLE_NAME: "hzcode-admin"
           RECAPTCHA_SECRET_KEY: !Ref RecaptchaSecretKey
       Events:
@@ -252,7 +266,7 @@ Resources:
             TableName: !Ref HzCodePortfolioTable
       Environment:
         Variables:
-          JWT_SECRET: "my-super-secret-jwt-key"
+          JWT_SECRET: !Ref JwtSecret
           TABLE_NAME: "hzcode-portfolio"
       Events:
         GetPortfolio:
@@ -281,7 +295,7 @@ Resources:
             TableName: !Ref HzCodeAboutTable
       Environment:
         Variables:
-          JWT_SECRET: "my-super-secret-jwt-key"
+          JWT_SECRET: !Ref JwtSecret
           TABLE_NAME: "hzcode-about"
       Events:
         GetAbout:
@@ -305,7 +319,7 @@ Resources:
             BucketName: !Ref HzCodeMediaBucket
       Environment:
         Variables:
-          JWT_SECRET: "my-super-secret-jwt-key"
+          JWT_SECRET: !Ref JwtSecret
           MEDIA_BUCKET: "hzcode-mx-media-870819815698"
       Events:
         GetUploadUrl:

@@ -9,14 +9,14 @@ table = dynamodb.Table(os.environ.get('TABLE_NAME', 'hzcode-about'))
 
 CORS_HEADERS = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': 'https://hzcode.mx'
 }
 ABOUT_ID = 'main'
 
 def verify_jwt(event):
     headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
     auth_header = headers.get('authorization', '')
-    jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+    jwt_secret = os.environ.get('JWT_SECRET', '')
 
     if not auth_header.startswith("Bearer "):
         return {'statusCode': 401, 'headers': CORS_HEADERS, 'body': json.dumps({'message': 'Unauthorized'})}

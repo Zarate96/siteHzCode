@@ -7,11 +7,11 @@ from botocore.exceptions import ClientError
 
 s3_client = boto3.client('s3')
 BUCKET_NAME = os.environ.get('MEDIA_BUCKET', 'hzcode-mx-media-870819815698')
-JWT_SECRET = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+JWT_SECRET = os.environ.get('JWT_SECRET', '')
 
 CORS_HEADERS = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': 'https://hzcode.mx'
 }
 
 def lambda_handler(event, context):

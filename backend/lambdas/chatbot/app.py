@@ -8,6 +8,11 @@ client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY', ''))
 # Máximo de turnos previos del historial que se envían al LLM.
 # Cada turno = 1 mensaje user + 1 mensaje assistant.
 MAX_HISTORY_TURNS = 10
+# Límites de contenido por rol para evitar prompt injection vía historial falso.
+# El modelo genera respuestas de máx ~400 tokens ≈ ~1600 chars, así que 2000 es
+# suficiente para mensajes reales pero descarta payloads de inyección masivos.
+MAX_USER_MSG_LEN = 500      # igual al maxLength del input en el frontend
+MAX_ASSISTANT_MSG_LEN = 2000  # cubre respuestas reales del LLM con margen
 
 
 def lambda_handler(event, context):
@@ -31,6 +36,8 @@ def lambda_handler(event, context):
     user_message = (body.get('message') or '').strip()
     if not user_message:
         return _cors_response(400, {'error': '"message" field is required'})
+    if len(user_message) > MAX_USER_MSG_LEN:
+        return _cors_response(400, {'error': f'Message too long (max {MAX_USER_MSG_LEN} characters)'})
 
     # sessionId se recibe pero no se persiste — solo sirve para logs futuros
     session_id = (body.get('sessionId') or 'anonymous')[:64]
@@ -38,15 +45,21 @@ def lambda_handler(event, context):
     # ------------------------------------------------------------------ #
     # Sanitizar historial enviado por el cliente                          #
     # [{"role": "user"|"assistant", "content": "..."}]                   #
+    # Se aplica límite de longitud diferenciado por rol para dificultar   #
+    # la inyección de contexto falso a través del historial del cliente.  #
     # ------------------------------------------------------------------ #
     raw_history = body.get('history') or []
-    history = [
-        {'role': h['role'], 'content': str(h['content'])[:2000]}
-        for h in raw_history
-        if isinstance(h, dict)
-        and h.get('role') in ('user', 'assistant')
-        and isinstance(h.get('content'), str)
-    ][-MAX_HISTORY_TURNS * 2:]  # limitar a los últimos N turnos (2 msgs por turno)
+    history = []
+    for h in raw_history:
+        if not isinstance(h, dict):
+            continue
+        role = h.get('role')
+        content = h.get('content')
+        if role not in ('user', 'assistant') or not isinstance(content, str):
+            continue
+        limit = MAX_USER_MSG_LEN if role == 'user' else MAX_ASSISTANT_MSG_LEN
+        history.append({'role': role, 'content': content[:limit]})
+    history = history[-MAX_HISTORY_TURNS * 2:]
 
     # ------------------------------------------------------------------ #
     # Construir lista de mensajes para OpenAI                             #
@@ -87,7 +100,7 @@ def _cors_response(status_code: int, body: dict):
         'statusCode': status_code,
         'headers': {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': 'https://hzcode.mx',
             'Access-Control-Allow-Headers': 'Content-Type',
             'Access-Control-Allow-Methods': 'POST,OPTIONS',
         },

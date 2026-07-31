@@ -21,7 +21,7 @@ def lambda_handler(event, context):
                 'statusCode': 200,
                 'headers': {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': 'https://hzcode.mx'
                 },
                 'body': json.dumps(items)
             }
@@ -37,7 +37,7 @@ def lambda_handler(event, context):
                     'statusCode': 200,
                     'headers': {
                         'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
+                        'Access-Control-Allow-Origin': 'https://hzcode.mx'
                     },
                     'body': json.dumps(item)
                 }
@@ -46,7 +46,7 @@ def lambda_handler(event, context):
                     'statusCode': 404,
                     'headers': {
                         'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
+                        'Access-Control-Allow-Origin': 'https://hzcode.mx'
                     },
                     'body': json.dumps({'message': 'Blog post not found'})
                 }
@@ -55,12 +55,12 @@ def lambda_handler(event, context):
             # Admin create/edit blog post
             headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
             auth_header = headers.get('authorization', '')
-            jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+            jwt_secret = os.environ.get('JWT_SECRET', '')
             
             if not auth_header.startswith("Bearer "):
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Missing or invalid token format'})
                 }
                 
@@ -70,7 +70,7 @@ def lambda_handler(event, context):
             except Exception:
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Unauthorized'})
                 }
                 
@@ -79,14 +79,14 @@ def lambda_handler(event, context):
             if not slug:
                 return {
                     'statusCode': 400,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Slug is required'})
                 }
                 
             table.put_item(Item=body)
             return {
                 'statusCode': 201,
-                'headers': {'Access-Control-Allow-Origin': '*'},
+                'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                 'body': json.dumps({'message': 'Blog saved successfully'})
             }
 
@@ -94,12 +94,12 @@ def lambda_handler(event, context):
             # Admin delete blog post
             headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
             auth_header = headers.get('authorization', '')
-            jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+            jwt_secret = os.environ.get('JWT_SECRET', '')
             
             if not auth_header.startswith("Bearer "):
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Missing or invalid token format'})
                 }
                 
@@ -109,7 +109,7 @@ def lambda_handler(event, context):
             except Exception:
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Unauthorized'})
                 }
                 
@@ -117,19 +117,19 @@ def lambda_handler(event, context):
             table.delete_item(Key={'slug': slug})
             return {
                 'statusCode': 200,
-                'headers': {'Access-Control-Allow-Origin': '*'},
+                'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                 'body': json.dumps({'message': 'Blog deleted'})
             }
                 
     except ClientError as e:
         return {
             'statusCode': 500,
-            'headers': {'Access-Control-Allow-Origin': '*'},
+            'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
             'body': json.dumps({'error': str(e)})
         }
         
     return {
         'statusCode': 400,
-        'headers': {'Access-Control-Allow-Origin': '*'},
+        'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
         'body': json.dumps({'message': 'Invalid request'})
     }

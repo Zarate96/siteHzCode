@@ -43,7 +43,8 @@ jobs:
             --parameter-overrides \
               SmtpPassword=${{ secrets.IONOS_SMTP_PASS }} \
               RecaptchaSecretKey=${{ secrets.RECAPTCHA_SECRET_KEY }} \
-              OpenAIApiKey=${{ secrets.OPENAI_API_KEY }}
+              OpenAIApiKey=${{ secrets.OPENAI_API_KEY }} \
+              JwtSecret=${{ secrets.JWT_SECRET }}
 
   deploy-frontend:
     name: Deploy Frontend React

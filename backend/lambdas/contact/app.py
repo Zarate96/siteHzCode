@@ -2,6 +2,7 @@ import json
 import boto3
 import os
 import uuid
+import re
 import datetime
 import jwt
 import smtplib
@@ -10,6 +11,9 @@ import urllib.parse
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from botocore.exceptions import ClientError
+
+# Regex RFC 5322 simplificado — rechaza la mayoría de entradas malformadas
+EMAIL_RE = re.compile(r'^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$')
 
 dynamodb = boto3.resource('dynamodb')
 table_name = os.environ.get('TABLE_NAME', 'hzcode-messages')
@@ -39,7 +43,6 @@ def send_email(to_email, subject, html_body):
         
         print(f"[EMAIL] Connecting to {SMTP_HOST}:{SMTP_PORT}...", flush=True)
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as server:
-            server.set_debuglevel(1)  # This logs full SMTP conversation
             print("[EMAIL] Connected. Starting TLS...", flush=True)
             server.starttls()
             print("[EMAIL] TLS established. Logging in...", flush=True)
@@ -67,8 +70,31 @@ def lambda_handler(event, context):
             if not body.get('name') or not body.get('email') or not body.get('message'):
                 return {
                     'statusCode': 400,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Missing required fields'})
+                }
+
+            # Email format validation
+            email_input = body.get('email', '').strip()
+            if not EMAIL_RE.match(email_input) or len(email_input) > 254:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
+                    'body': json.dumps({'message': 'Invalid email format'})
+                }
+
+            # Field length limits
+            if len(body.get('name', '')) > 100:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
+                    'body': json.dumps({'message': 'Name is too long (max 100 characters)'})
+                }
+            if len(body.get('message', '')) > 5000:
+                return {
+                    'statusCode': 400,
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
+                    'body': json.dumps({'message': 'Message is too long (max 5000 characters)'})
                 }
             
             # reCAPTCHA v3 validation
@@ -85,7 +111,7 @@ def lambda_handler(event, context):
                             print(f"reCAPTCHA failed: {result}")
                             return {
                                 'statusCode': 400,
-                                'headers': {'Access-Control-Allow-Origin': '*'},
+                                'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                                 'body': json.dumps({'message': 'reCAPTCHA verification failed'})
                             }
                 except Exception as e:
@@ -93,7 +119,7 @@ def lambda_handler(event, context):
             elif recaptcha_secret and not recaptcha_token:
                 return {
                     'statusCode': 400,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Missing reCAPTCHA token'})
                 }
             
@@ -170,7 +196,7 @@ def lambda_handler(event, context):
                 'statusCode': 201,
                 'headers': {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': 'https://hzcode.mx'
                 },
                 'body': json.dumps({
                     'message': 'Mensaje enviado exitosamente',
@@ -182,12 +208,12 @@ def lambda_handler(event, context):
             # Admin read all messages
             headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
             auth_header = headers.get('authorization', '')
-            jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+            jwt_secret = os.environ.get('JWT_SECRET', '')
             
             if not auth_header.startswith("Bearer "):
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Missing or invalid token format'})
                 }
                 
@@ -197,7 +223,7 @@ def lambda_handler(event, context):
             except Exception:
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Unauthorized'})
                 }
                 
@@ -209,7 +235,7 @@ def lambda_handler(event, context):
                 'statusCode': 200,
                 'headers': {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': 'https://hzcode.mx'
                 },
                 'body': json.dumps(items)
             }
@@ -218,12 +244,12 @@ def lambda_handler(event, context):
             # Admin delete message
             headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
             auth_header = headers.get('authorization', '')
-            jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+            jwt_secret = os.environ.get('JWT_SECRET', '')
             
             if not auth_header.startswith("Bearer "):
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Missing or invalid token format'})
                 }
                 
@@ -233,7 +259,7 @@ def lambda_handler(event, context):
             except Exception:
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Unauthorized'})
                 }
                 
@@ -243,7 +269,7 @@ def lambda_handler(event, context):
                 'statusCode': 200,
                 'headers': {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': 'https://hzcode.mx'
                 },
                 'body': json.dumps({'message': 'Message deleted successfully'})
             }
@@ -252,12 +278,12 @@ def lambda_handler(event, context):
             # Admin update message status
             headers = {k.lower(): v for k, v in event.get('headers', {}).items()}
             auth_header = headers.get('authorization', '')
-            jwt_secret = os.environ.get('JWT_SECRET', 'my-super-secret-jwt-key')
+            jwt_secret = os.environ.get('JWT_SECRET', '')
             
             if not auth_header.startswith("Bearer "):
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Missing or invalid token format'})
                 }
                 
@@ -267,7 +293,7 @@ def lambda_handler(event, context):
             except Exception:
                 return {
                     'statusCode': 401,
-                    'headers': {'Access-Control-Allow-Origin': '*'},
+                    'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
                     'body': json.dumps({'message': 'Unauthorized'})
                 }
                 
@@ -285,7 +311,7 @@ def lambda_handler(event, context):
                 'statusCode': 200,
                 'headers': {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': 'https://hzcode.mx'
                 },
                 'body': json.dumps({'message': 'Message updated successfully'})
             }
@@ -293,18 +319,18 @@ def lambda_handler(event, context):
     except ClientError as e:
         return {
             'statusCode': 500,
-            'headers': {'Access-Control-Allow-Origin': '*'},
+            'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
             'body': json.dumps({'error': str(e)})
         }
     except Exception as e:
         return {
             'statusCode': 500,
-            'headers': {'Access-Control-Allow-Origin': '*'},
+            'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
             'body': json.dumps({'error': str(e)})
         }
         
     return {
         'statusCode': 400,
-        'headers': {'Access-Control-Allow-Origin': '*'},
+        'headers': {'Access-Control-Allow-Origin': 'https://hzcode.mx'},
         'body': json.dumps({'message': 'Invalid request'})
     }
