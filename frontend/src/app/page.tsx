@@ -223,25 +223,57 @@ export default function Home() {
           </div>
         )}
       </section>
-      {/* 3. SKILL CARDS (.habilities-container in old HTML) */}
+      {/* 3. TECH STACK */}
       <section className="py-24 bg-[#080808] border-y border-gray-800/50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">Habilidades Técnicas</h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">Stack Tecnológico</h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Las herramientas y plataformas con las que construimos soluciones robustas, escalables y listas para producción.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'Python', pct: 'w-[95%]', icon: <Terminal className="w-8 h-8" /> },
-              { name: 'Django', pct: 'w-[90%]', icon: <Server className="w-8 h-8" /> },
-              { name: 'AWS', pct: 'w-[85%]', icon: <Cloud className="w-8 h-8" /> },
-              { name: 'Golang', pct: 'w-[75%]', icon: <Code2 className="w-8 h-8" /> },
-              { name: 'Flask', pct: 'w-[80%]', icon: <Server className="w-8 h-8" /> },
-            ].map((skill, i) => (
-              <div key={i} className="bg-[#111111] border border-gray-800 rounded-xl p-6 text-center hover:-translate-y-2 hover:border-hzgold-500/50 transition-all duration-300 shadow-xl group">
-                <div className="w-16 h-16 mx-auto bg-gray-900 rounded-full flex items-center justify-center text-gray-400 group-hover:text-hzgold-400 transition-colors mb-4">
-                  {skill.icon}
+              {
+                category: 'Backend',
+                icon: <Server className="w-6 h-6" />,
+                items: ['Python', 'Django', 'FastAPI', 'Flask', 'Golang', 'REST APIs'],
+              },
+              {
+                category: 'Cloud & DevOps',
+                icon: <Cloud className="w-6 h-6" />,
+                items: ['AWS Lambda', 'API Gateway', 'S3 / CloudFront', 'GCP', 'Azure', 'CI/CD'],
+              },
+              {
+                category: 'Frontend',
+                icon: <Code2 className="w-6 h-6" />,
+                items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Responsive UI'],
+              },
+              {
+                category: 'Arquitectura',
+                icon: <Terminal className="w-6 h-6" />,
+                items: ['Clean Architecture', 'DDD', 'Microservicios', 'Event-Driven', 'Hexagonal'],
+              },
+            ].map((col, i) => (
+              <div
+                key={i}
+                className="bg-[#111111] border border-gray-800 rounded-2xl p-6 hover:border-hzgold-500/50 transition-all duration-300 shadow-xl group"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-hzgold-900/40 border border-hzgold-700/30 flex items-center justify-center text-hzgold-400 group-hover:bg-hzgold-900/70 transition-colors">
+                    {col.icon}
+                  </div>
+                  <h3 className="font-bold text-white text-lg">{col.category}</h3>
                 </div>
-                <h3 className="font-bold text-lg mb-4">{skill.name}</h3>
-                <div className="w-full bg-gray-900 rounded-full h-1.5 overflow-hidden">
-                  <div className={`bg-hzgold-500 h-1.5 rounded-full ${skill.pct}`}></div>
+                <div className="flex flex-wrap gap-2">
+                  {col.items.map((item, j) => (
+                    <span
+                      key={j}
+                      className="text-xs font-mono px-3 py-1.5 rounded-full bg-gray-900 border border-gray-700/60 text-gray-300 group-hover:border-hzgold-800/50 transition-colors"
+                    >
+                      {item}
+                    </span>
+                  ))}
                 </div>
               </div>
             ))}
