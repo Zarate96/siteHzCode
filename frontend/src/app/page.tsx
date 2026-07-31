@@ -229,7 +229,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">Stack Tecnológico</h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Las herramientas y plataformas con las que construimos soluciones robustas, escalables y listas para producción.
+              Expertos en uso de herramientas y plataformas para construir soluciones robustas, escalables y listas para producción.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
