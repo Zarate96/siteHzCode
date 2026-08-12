@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Mail, Phone, Globe } from 'lucide-react';
-import { FaLinkedin } from 'react-icons/fa6';
+import { FaLinkedin, FaWhatsapp } from 'react-icons/fa6';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -47,6 +47,19 @@ export default function Footer() {
                     <Phone className="w-3.5 h-3.5" />
                   </span>
                   56 3196 0050
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/5215631960050?text=Hola%2C%20me%20interesa%20cotizar%20un%20proyecto"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-gray-400 hover:text-hzgold-400 transition-colors text-sm group"
+                >
+                  <span className="w-8 h-8 rounded-full bg-gray-900 border border-gray-800 flex items-center justify-center group-hover:border-hzgold-700 transition-colors flex-shrink-0">
+                    <FaWhatsapp className="w-3.5 h-3.5" />
+                  </span>
+                  WhatsApp
                 </a>
               </li>
               <li>

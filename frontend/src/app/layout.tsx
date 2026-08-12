@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import ChatWidget from "@/components/ChatWidget";
+import { FaWhatsapp } from 'react-icons/fa6';
 
 export default function RootLayout({
   children,
@@ -38,6 +39,16 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        {/* Floating WhatsApp button */}
+        <a
+          href="https://wa.me/5215631960050?text=Hola%2C%20me%20interesa%20cotizar%20un%20proyecto"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Contactar por WhatsApp"
+          className="fixed bottom-24 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1ebe5d] text-white shadow-lg hover:shadow-[#25D366]/30 hover:scale-110 transition-all duration-300"
+        >
+          <FaWhatsapp size={26} />
+        </a>
         <ChatWidget />
       </body>
     </html>

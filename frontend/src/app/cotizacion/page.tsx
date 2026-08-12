@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { api } from '@/services/api';
 import Script from 'next/script';
 import { Phone, Mail, Globe, Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import { FaLinkedin } from 'react-icons/fa6';
+import { FaLinkedin, FaWhatsapp } from 'react-icons/fa6';
 import Link from 'next/link';
 
 const RECAPTCHA_SITE_KEY = '6LfGGLgsAAAAAGM2Gi__RUzKv3OyQ4KsDdnmw6l6';
@@ -16,6 +16,12 @@ declare global {
 }
 
 const CONTACT_ITEMS = [
+  {
+    icon: <FaWhatsapp className="w-5 h-5" />,
+    label: 'WhatsApp',
+    value: '56 3196 0050',
+    href: 'https://wa.me/5215631960050?text=Hola%2C%20me%20interesa%20cotizar%20un%20proyecto',
+  },
   {
     icon: <Phone className="w-5 h-5" />,
     label: 'Teléfono',
